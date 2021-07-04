@@ -1,0 +1,68 @@
+.menuCard {
+  width: 320px;
+  min-height: 100%;
+  margin: 0;
+  border-radius: 10px;
+  color: gray;
+  margin: 0.5em;
+
+  .imagePrice{
+    position: relative;
+    z-index: -1;
+    p{
+      position: absolute;
+      top: -22px;
+      right: -13px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #97D9B7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(49, 49, 49);
+      padding: 0.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 1px 2px 7px gray;
+    }
+  }
+  .image {
+    width: 100%;
+    height: 70%;
+    margin: auto;
+    border-radius: 10px;
+  }
+
+
+
+  .titleStar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 0px;
+  }
+  .starContainer {
+    display: flex;
+    p{
+      margin-right: 0.5em;
+    }
+  }
+
+  .addCartContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .addCart{
+    background-color: #97D9B7;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .addCart:hover{
+    background-color: #aff5d1;
+  }
+}

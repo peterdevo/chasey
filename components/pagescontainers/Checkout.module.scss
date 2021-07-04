@@ -1,0 +1,41 @@
+.checkout{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.checkoutBody {
+  padding: 10px;
+  width: 100%;
+  h2 {
+    margin: 20px 0px;
+  }
+}
+
+@media screen and (min-width: 560px) {
+  .checkoutBody {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .checkoutBody {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .checkoutBody {
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .checkoutBody {
+    width: 60%;
+    margin: auto;
+  }
+}

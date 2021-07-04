@@ -1,0 +1,15 @@
+.termOfCondition{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 0.4rem;
+    
+    .checkbox{
+        width: 20px;
+        height: 20px;
+    }
+    span{
+        border-bottom: 1px solid gray;
+        cursor: pointer;
+    }
+}

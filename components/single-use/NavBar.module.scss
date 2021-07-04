@@ -1,0 +1,67 @@
+.burger {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+  .line1,
+  .line2,
+  .line3 {
+    height: 1.1px;
+    width: 100%;
+    background-color: black;
+    margin-bottom: 1px;
+  }
+
+  .line2 {
+    width: 25px;
+  }
+}
+@mixin sidepagemixin {
+  position: fixed;
+  left: 0;
+  top: 8vh;
+  width: 100%;
+  background-color:white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  list-style: none;
+  transition:all 0.2s ease-out;
+  border-radius: 6%;
+  font-size: 1.5rem;
+  background-color: #f38d8d;
+  font-weight: 500;
+  letter-spacing:0.2em ;
+}
+
+@mixin listmixin {
+  cursor: pointer;
+  color: white;
+  
+}
+
+.sidePageActive {
+  transform: translateX(0%);
+  @include sidepagemixin();
+  @include listmixin();
+
+  li{
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  li:hover{
+    background-color: #f1c4b6;
+  
+  }
+}
+
+.sidePageDeactive {
+  transform: translateX(-100%);
+  @include sidepagemixin();
+  @include listmixin();
+}

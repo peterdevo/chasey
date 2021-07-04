@@ -1,0 +1,18 @@
+@mixin orderCardMixin {
+  height: 90px;
+  margin: 5px auto;
+  box-shadow: gray 1px 1px 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.orderCard {
+  width: 20em;
+  @include orderCardMixin();
+}
+
+.resizable {
+  @include orderCardMixin();
+}
