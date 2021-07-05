@@ -1,9 +1,9 @@
 import MainHeader from "../components/containers/MainHeader";
 import Categories from "../components/containers/Categories";
 import Menus from "../components/containers/Menus";
-import { connectDb } from "../utils/config";
-
-const HomePage = ({ menus }) => {
+import dbConnect from "../utils/config";
+import Product from "../models/product.model";
+const HomePage = ({menus}) => {
   return (
     <>
       <MainHeader />
@@ -14,15 +14,11 @@ const HomePage = ({ menus }) => {
 };
 
 export const getStaticProps = async () => {
-  const connection = await connectDb();
-  const db = connection.db();
-  const meetupCollection = db.collection("menus");
-  const menusData = await meetupCollection.find().toArray();
-  connection.close();
-
+  dbConnect();
+  const menus = await Product.find({});
   return {
     props: {
-      menus: menusData.map((menu) => {
+      menus: menus.map((menu) => {
         return {
           id: menu._id.toString(),
           image: menu.image,
@@ -33,7 +29,7 @@ export const getStaticProps = async () => {
         };
       }),
     },
-    revalidate:1
+    revalidate: 1,
   };
 };
 
