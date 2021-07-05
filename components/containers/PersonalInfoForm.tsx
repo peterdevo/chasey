@@ -38,7 +38,7 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
       <input
         type="text"
         placeholder="Name"
-        name="street"
+        name="name"
         value={personInfo.name}
         onChange={handleOnChange}
       />

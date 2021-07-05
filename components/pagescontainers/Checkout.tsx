@@ -10,7 +10,7 @@ const header = {
   path: "/",
 };
 
-const CheckOut = () => {
+const CheckOut = ({onCheckout}) => {
   const shoppingCartContext = useShoppingCartContext();
 
   const handleDelete = (index: number): void => {
@@ -32,7 +32,7 @@ const CheckOut = () => {
   };
 
   const handleCheckout = (personalInformation): void => {
-    console.log(personalInformation);
+    onCheckout(personalInformation)
   };
   return (
     <div className={classes.checkout}>
@@ -40,7 +40,6 @@ const CheckOut = () => {
       <div className={classes.checkoutBody}>
         <h2>My order</h2>
         {display()}
-
         <div>
           <TotalPrice
             totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
