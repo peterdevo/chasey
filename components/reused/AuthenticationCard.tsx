@@ -2,12 +2,19 @@ import classes from "./AuthenticationCard.module.scss";
 
 interface IProps {
   children: any;
-  onSubmit: (e:React.FormEvent<HTMLFormElement>) => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  method?: string;
+  action?: string;
 }
 
-const AuthenticationCard = ({ children, onSubmit }: IProps) => {
+const AuthenticationCard = ({ children, onSubmit, method, action }: IProps) => {
   return (
-    <form onSubmit={onSubmit} className={classes.authenticationCard} >
+    <form
+      onSubmit={onSubmit}
+      method={method}
+      action={action}
+      className={classes.authenticationCard}
+    >
       {children}
     </form>
   );

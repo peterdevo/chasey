@@ -1,6 +1,8 @@
 import mongoose, { Document } from "mongoose";
 import bcrypt from "bcrypt";
 
+mongoose.Promise = global.Promise;
+
 interface IUser extends Document {
   email: string;
   password: string;
@@ -18,6 +20,7 @@ const UserSchema = new mongoose.Schema<IUser>({
 });
 
 const SALT = 10;
+
 UserSchema.pre("save", function (next) {
   let user = this;
 
@@ -34,10 +37,8 @@ UserSchema.pre("save", function (next) {
   });
 });
 
-UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
+UserSchema.methods.comparePassword =async function (candidatePassword) {
+  const match=await bcrypt.compare(candidatePassword, this.password)
+  return match
 };
-export default mongoose.model.User || mongoose.model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);
