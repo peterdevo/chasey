@@ -6,7 +6,7 @@ import Button from "../reused/Button";
 import AuthenticationCard from "../reused/AuthenticationCard";
 import { ImGooglePlus } from "react-icons/im";
 
-const Signin = () => {
+const Signin = ({ onSignIn }) => {
   const [authInput, setAuthInput] = useState<UserInfoInput>({
     email: "",
     password: "",
@@ -26,7 +26,7 @@ const Signin = () => {
 
   const handleSignin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
+    onSignIn(authInput);
   };
   return (
     <>

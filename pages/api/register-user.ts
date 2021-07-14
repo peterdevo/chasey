@@ -1,13 +1,20 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import dbConnect from "../../utils/config";
-import User from "../../models/user.model";
+import User from "../../models/UserDetail";
 
 dbConnect();
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { email } = req.body;
+
   if (req.method === "POST") {
+    const result = await User.findOne({email });
+    if (result) {
+      return res.json({ message: "This user already exists" });
+    }
     const user = new User(req.body);
     await user.save();
-    res.status(200).json({message:"sucess"})
+    res.status(200).json({ message: "success" });
   }
 };
 

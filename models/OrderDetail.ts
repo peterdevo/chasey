@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{Document} from "mongoose";
 
 const OrderSchema = new mongoose.Schema({
   personalInfo: {
@@ -32,6 +32,6 @@ const OrderSchema = new mongoose.Schema({
       },
     },
   ],
+  
 });
-
 export default mongoose.models.Order || mongoose.model("Order", OrderSchema);

@@ -7,7 +7,11 @@ import classes from "./MainHeader.module.scss";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
 
-const Header = () => {
+interface IProps {
+  isSession: boolean;
+  handleSignout:()=>void
+}
+const Header = ({ isSession,handleSignout }: IProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [loginVisiblity, setLoginVisibility] = useState(false);
 
@@ -26,11 +30,14 @@ const Header = () => {
       <div className={classes.logo}>Chasey</div>
       <div className={classes.iconContainer}>
         <div>
-          {loginVisiblity && (
-            <p>
-              <Link href="../signin-page">Login/New member?</Link>
-            </p>
-          )}
+          {loginVisiblity &&
+            (isSession ? (
+              <p onClick={handleSignout}>Logout</p>
+            ) : (
+              <p>
+                <Link href="../signin-page">Login/New member?</Link>
+              </p>
+            ))}
         </div>
         <IoPersonOutline
           size={20}

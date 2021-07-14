@@ -2,11 +2,18 @@ import MainHeader from "../components/containers/MainHeader";
 import Categories from "../components/containers/Categories";
 import Menus from "../components/containers/Menus";
 import dbConnect from "../utils/config";
-import Product from "../models/product.model";
-const HomePage = ({menus}) => {
+import Product from "../models/ProductDetail";
+import { signOut, useSession } from "next-auth/client";
+const HomePage = ({ menus }) => {
+  const [session, loading] = useSession();
+  const isSession = session && true;
+
+  const handleSignOut = () => {
+    signOut();
+  };
   return (
     <>
-      <MainHeader />
+      <MainHeader isSession={isSession} handleSignout={handleSignOut} />
       <Categories />
       <Menus menuData={menus} />
     </>

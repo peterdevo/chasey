@@ -1,11 +1,14 @@
 import "../styles/globals.css";
+import { Provider } from "next-auth/client";
 import { ShoppingCartWrapper } from "../context/ShoppingCartContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ShoppingCartWrapper>
-      <Component {...pageProps} />
-    </ShoppingCartWrapper>
+    <Provider session={pageProps.session}>
+      <ShoppingCartWrapper>
+        <Component {...pageProps} />
+      </ShoppingCartWrapper>
+    </Provider>
   );
 }
 
