@@ -7,8 +7,8 @@ export default NextAuth({
     Providers.Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "email", type: "text", placeholder: "@email" },
-        password: { label: "password", type: "password" },
+        email: {type: "text"},
+        password: {type: "password" },
       },
       async authorize(credentials, req) {
         let authUser = await user.findOne({ email: credentials.email });

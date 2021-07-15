@@ -1,14 +1,20 @@
 import Signin from "../components/pagescontainers/Signin";
 import { signIn } from "next-auth/client";
-import { redirect } from "next/dist/next-server/server/api-utils";
+import router, { useRouter } from "next/router";
 
 const SignInPage = () => {
+  const route = useRouter();
   const onSignIn = (user) => {
     signIn("credentials", {
       email: user.email,
       password: user.password,
       redirect: false,
-    }).then((result) => console.log(JSON.stringify(result) ));
+    }).then((response) => {
+      if (response.error) {
+        return response.error;
+      }
+      route.push("/");
+    });
   };
   return (
     <>

@@ -3,15 +3,16 @@ import Link from "next/link";
 import NavBar from "../single-use/NavBar";
 import ShoppingCart from "./ShoppingCart";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
+import ProfileDropDown from "./ProfileDropDown";
 import classes from "./MainHeader.module.scss";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
 
 interface IProps {
   isSession: boolean;
-  handleSignout:()=>void
+  handleSignout: () => void;
 }
-const Header = ({ isSession,handleSignout }: IProps) => {
+const Header = ({ isSession, handleSignout }: IProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [loginVisiblity, setLoginVisibility] = useState(false);
 
@@ -29,16 +30,20 @@ const Header = ({ isSession,handleSignout }: IProps) => {
       <NavBar />
       <div className={classes.logo}>Chasey</div>
       <div className={classes.iconContainer}>
-        <div>
-          {loginVisiblity &&
-            (isSession ? (
-              <p onClick={handleSignout}>Logout</p>
+        {loginVisiblity && (
+          <>
+            {isSession ? (
+              <div style={{bottom:"-100px"}} className={classes.loginDropDown}>
+              <ProfileDropDown handleSignout={handleSignout} />
+              </div>
             ) : (
-              <p>
-                <Link href="../signin-page">Login/New member?</Link>
-              </p>
-            ))}
-        </div>
+              <div className={classes.loginDropDown}>
+              <Link href="../signin-page">Login/New member?</Link>
+              </div>
+            )}
+          </>
+        )}
+
         <IoPersonOutline
           size={20}
           className={classes.icon}
