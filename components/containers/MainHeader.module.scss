@@ -34,30 +34,30 @@
     margin-left: 5px;
   }
 
-  p {
+  .loginDropDown {
     background-color: #81818c;
     padding: 0.5rem;
     position: absolute;
     bottom: -50px;
-    right: -5px;
+    right:  0px;
     font-size: 12px;
     border-radius: 5px;
-    cursor: pointer;
     letter-spacing: 1px;
     font-weight: 200;
-    width: 150px;
     text-align: center;
+    width: 150px;
+    
 
     a {
       text-decoration: none;
       color: #ffffff;
     }
   }
-  p::before {
+  .loginDropDown::before {
     content: "";
     position: absolute;
-    top: -18px;
-    left: 65px;
+    top: -15px;
+    left: 70px;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 18px solid #81818c;

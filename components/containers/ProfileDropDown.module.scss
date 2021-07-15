@@ -1,0 +1,21 @@
+.profileDropDown{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: white;
+    font-size: 1.4em;
+    list-style: none;
+    cursor: pointer;
+
+    li{
+        margin-bottom: 0.2em;
+    }
+
+    li:hover{
+        color: yellowgreen;
+    }
+
+    li a:hover{
+        color: yellowgreen;
+    }
+}

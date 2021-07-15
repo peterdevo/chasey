@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const result = await User.findOne({email });
     if (result) {
-      return res.json({ message: "This user already exists" });
+      return res.status(409).json({ message: "This user already exists" });
     }
     const user = new User(req.body);
     await user.save();
