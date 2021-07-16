@@ -7,8 +7,8 @@ export default NextAuth({
     Providers.Credentials({
       name: "credentials",
       credentials: {
-        email: {type: "text"},
-        password: {type: "password" },
+        email: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
         let authUser = await user.findOne({ email: credentials.email });
@@ -18,20 +18,23 @@ export default NextAuth({
         let isMatch = await authUser.comparePassword(credentials.password);
 
         if (isMatch) {
-          return authUser;
+          return {...authUser,name:authUser.lastName};
         } else {
           throw new Error("Incorrect password!");
         }
       },
     }),
+    Providers.Google({
+      clientId:
+        "1009932030744-fthfnv96ajk9d540cpt1j162r7jsm2cs.apps.googleusercontent.com",
+      clientSecret: "Ysh-SG2SICKDtWIKn-9AVTc5",
+      authorizationUrl:
+        "https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
+    }),
   ],
   session: {
     maxAge: 30 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
-  },
-
-  jwt: {
-    signingKey: process.env.SIGNING_KEY,
   },
   pages: {
     signIn: "/signin-page",

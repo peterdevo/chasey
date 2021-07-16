@@ -4,7 +4,7 @@ import router, { useRouter } from "next/router";
 
 const SignInPage = () => {
   const route = useRouter();
-  const onSignIn = (user) => {
+  const onCredentialSignin = (user) => {
     signIn("credentials", {
       email: user.email,
       password: user.password,
@@ -16,9 +16,12 @@ const SignInPage = () => {
       route.push("/");
     });
   };
+  const onGoogleSignin=()=>{
+    signIn("google",{callbackUrl:"http://localhost:3000/"})
+  }
   return (
     <>
-      <Signin onSignIn={onSignIn} />
+      <Signin onCredentialSignin={onCredentialSignin} onGoogleSignin={onGoogleSignin} />
     </>
   );
 };

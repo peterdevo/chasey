@@ -26,4 +26,11 @@ export type Person = {
 export type UserInfoInput={
   email:string,
   password:string,
+  firstName:string,
+  lastName:string,
+  address:{
+    street:string
+    city:string,
+    zipcode:string
+  }
 }
