@@ -11,11 +11,30 @@ interface IUser extends Document {
 const UserSchema = new mongoose.Schema<IUser>({
   email: {
     type: String,
-    required: [true, "Please add a title"],
+    required: [true, "Please enter email"],
   },
   password: {
     type: String,
-    required: [true, "Please add a title"],
+    required: [true, "Please enter password"],
+  },
+  firstName: {
+    type: String,
+    required: [true, "Please enter firstname"],
+  },
+  lastName: {
+    type: String,
+    required: [true, "Please enter lastname"],
+  },
+  address: {
+    city: {
+      type: String,
+    },
+    street: {
+      type: String,
+    },
+    zipcode: {
+      type: String,
+    },
   },
 });
 
@@ -37,8 +56,8 @@ UserSchema.pre("save", function (next) {
   });
 });
 
-UserSchema.methods.comparePassword =async function (candidatePassword) {
-  const match=await bcrypt.compare(candidatePassword, this.password)
-  return match
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  const match = await bcrypt.compare(candidatePassword, this.password);
+  return match;
 };
 export default mongoose.models.User || mongoose.model("User", UserSchema);

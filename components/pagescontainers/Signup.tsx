@@ -4,10 +4,17 @@ import AuthenticationCard from "../reused/AuthenticationCard";
 import Header from "../containers/Header";
 import Button from "../reused/Button";
 import { UserInfoInput } from "../../typesVariants/Types";
-const Signup = ({OnSignUp }) => {
+const Signup = ({ OnSignUp }) => {
   const [registeredUser, setRegisteredUser] = useState<UserInfoInput>({
     email: "",
     password: "",
+    firstName: "",
+    lastName: "",
+    address: {
+      street: "",
+      city: "",
+      zipcode: "",
+    },
   });
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
 
@@ -34,6 +41,22 @@ const Signup = ({OnSignUp }) => {
       <Header header={header} />
       <AuthenticationCard onSubmit={handleSignup}>
         <h3>Register</h3>
+        <label>Firstname</label>
+        <input
+          type="text"
+          placeholder="Enter your firstname"
+          name="firstName"
+          value={registeredUser.firstName}
+          onChange={handleOnchange}
+        />
+        <label>Lastname</label>
+        <input
+          type="text"
+          placeholder="Enter your lastname"
+          name="lastName"
+          value={registeredUser.lastName}
+          onChange={handleOnchange}
+        />
         <label>Email</label>
         <input
           type="text"

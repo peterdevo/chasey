@@ -6,7 +6,7 @@ import Button from "../reused/Button";
 import AuthenticationCard from "../reused/AuthenticationCard";
 import { ImGooglePlus } from "react-icons/im";
 
-const Signin = ({ onSignIn }) => {
+const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
   const [authInput, setAuthInput] = useState<UserInfoInput>({
     email: "",
     password: "",
@@ -26,14 +26,14 @@ const Signin = ({ onSignIn }) => {
 
   const handleSignin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onSignIn(authInput);
+    onCredentialSignin(authInput);
   };
   return (
     <>
       <Header header={header} />
       <AuthenticationCard onSubmit={handleSignin}>
         <h3>Sign in</h3>
-        <div className={classes.google}>
+        <div className={classes.google} onClick={onGoogleSignin}>
           <ImGooglePlus size={22} />
           <div>Sign in with google</div>
         </div>
