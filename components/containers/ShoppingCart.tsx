@@ -8,8 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface IProps{
   isVisible:boolean
+  name:string
 }
-const ShoppingCart = ({ isVisible}:IProps) => {
+const ShoppingCart = ({ isVisible,name}:IProps) => {
   const route = useRouter();
 
   const navigateToCheckout = (): void => {
@@ -48,7 +49,7 @@ const ShoppingCart = ({ isVisible}:IProps) => {
             height={50}
           />
         </div>
-        <div>Kalle</div>
+        <div>{name}</div>
       </div>
       <div className={classes.orderSection}>
         <h2>My order</h2>

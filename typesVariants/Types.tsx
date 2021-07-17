@@ -17,6 +17,7 @@ export type OrderType = {
 
 export type Person = {
   name: string;
+  city:string;
   street: string;
   zipcode: string;
   email: string;

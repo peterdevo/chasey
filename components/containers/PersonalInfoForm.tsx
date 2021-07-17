@@ -14,6 +14,7 @@ interface Iprops {
 const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
   const [personInfo, setPersonInfo] = useState<Istate["person"]>({
     name: "",
+    city: "",
     street: "",
     zipcode: "",
     email: "",
@@ -40,6 +41,14 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
         placeholder="Name"
         name="name"
         value={personInfo.name}
+        onChange={handleOnChange}
+      />
+      <label>City</label>
+      <input
+        type="text"
+        placeholder="City"
+        name="city"
+        value={personInfo.city}
         onChange={handleOnChange}
       />
       <label>Street</label>

@@ -13,7 +13,11 @@ const HomePage = ({ menus }) => {
   };
   return (
     <>
-      <MainHeader isSession={isSession} handleSignout={handleSignOut} />
+      <MainHeader
+        name={session&&session.user.name}
+        isSession={isSession}
+        handleSignout={handleSignOut}
+      />
       <Categories />
       <Menus menuData={menus} />
     </>
