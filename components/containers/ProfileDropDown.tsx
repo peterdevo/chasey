@@ -1,9 +1,18 @@
 import Link from "next/dist/client/link";
 import classes from "./ProfileDropDown.module.scss";
-const ProfileDropDown = ({ handleSignout }) => {
+
+interface IProps {
+  name: string;
+  handleSignout: () => void;
+}
+const ProfileDropDown = ({ name, handleSignout }: IProps) => {
   return (
     <>
       <ul className={classes.profileDropDown}>
+        <div>
+          Hi,<span>{name}!</span>
+        </div>
+
         <li>
           <Link href="profile-page">My profile</Link>
         </li>

@@ -7,8 +7,8 @@ export default NextAuth({
     Providers.Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        email: { type: "text" },
+        password: { type: "password" },
       },
       async authorize(credentials, req) {
         let authUser = await user.findOne({ email: credentials.email });
@@ -18,7 +18,7 @@ export default NextAuth({
         let isMatch = await authUser.comparePassword(credentials.password);
 
         if (isMatch) {
-          return {...authUser,name:authUser.lastName};
+          return { ...authUser, name: authUser.lastName };
         } else {
           throw new Error("Incorrect password!");
         }
