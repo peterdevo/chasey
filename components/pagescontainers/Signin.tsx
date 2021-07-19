@@ -3,7 +3,7 @@ import { UserInfoInput } from "../../typesVariants/Types";
 import Header from "../containers/Header";
 import classes from "./Signin.module.scss";
 import Button from "../reused/Button";
-import AuthenticationCard from "../reused/AuthenticationCard";
+import FormCard from "../reused/FormCard";
 import { ImGooglePlus } from "react-icons/im";
 
 const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
@@ -31,7 +31,7 @@ const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
   return (
     <>
       <Header header={header} />
-      <AuthenticationCard onSubmit={handleSignin}>
+      <FormCard onSubmit={handleSignin}>
         <h3>Sign in</h3>
         <div className={classes.google} onClick={onGoogleSignin}>
           <ImGooglePlus size={22} />
@@ -59,7 +59,7 @@ const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
         <Button type="submit" buttonStyle={"auth"}>
           Sign in
         </Button>
-      </AuthenticationCard>
+      </FormCard>
     </>
   );
 };

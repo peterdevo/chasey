@@ -1,0 +1,13 @@
+.footerContainer{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(196, 120, 120);
+    color: white;
+    padding:0.5em 0.7em;
+}
+
+.footerContainer span{
+    padding: 0.2em;
+    cursor: pointer;
+}
+

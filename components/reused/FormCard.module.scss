@@ -1,4 +1,4 @@
-.authenticationCard {
+.formCard {
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -10,31 +10,31 @@
 
 
 @media screen and (min-width: 450px) {
-    .authenticationCard {
+    .formCard {
       width: 70vw;
     }
   }
   
   @media screen and (min-width: 600px) {
-    .authenticationCard {
+    .formCard {
       width: 60vw;
     }
   }
   
   @media screen and (min-width: 800px) {
-    .authenticationCard {
+    .formCard {
       width: 50vw;
     }
   }
   
   @media screen and (min-width: 900px) {
-    .authenticationCard {
+    .formCard {
       width: 40vw;
     }
   }
   
   @media screen and (min-width: 1200px) {
-    .authenticationCard {
+    .formCard {
       width: 30vw;
     }
   }

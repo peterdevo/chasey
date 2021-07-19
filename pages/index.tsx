@@ -4,6 +4,7 @@ import Menus from "../components/containers/Menus";
 import dbConnect from "../utils/config";
 import Product from "../models/ProductDetail";
 import { signOut, useSession } from "next-auth/client";
+import Layout from "../layouts/Layout";
 const HomePage = ({ menus }) => {
   const [session, loading] = useSession();
   const isSession = session && true;
@@ -13,13 +14,15 @@ const HomePage = ({ menus }) => {
   };
   return (
     <>
-      <MainHeader
-        name={session&&session.user.name}
-        isSession={isSession}
-        handleSignout={handleSignOut}
-      />
-      <Categories />
-      <Menus menuData={menus} />
+      <Layout>
+        <MainHeader
+          name={session && session.user.name}
+          isSession={isSession}
+          handleSignout={handleSignOut}
+        />
+        <Categories />
+        <Menus menuData={menus} />
+      </Layout>
     </>
   );
 };
