@@ -1,4 +1,4 @@
-import classes from "./AuthenticationCard.module.scss";
+import classes from "./FormCard.module.scss";
 
 interface IProps {
   children: any;
@@ -7,17 +7,17 @@ interface IProps {
   action?: string;
 }
 
-const AuthenticationCard = ({ children, onSubmit, method, action }: IProps) => {
+const FormCard = ({ children, onSubmit, method, action }: IProps) => {
   return (
     <form
       onSubmit={onSubmit}
       method={method}
       action={action}
-      className={classes.authenticationCard}
+      className={classes.formCard}
     >
       {children}
     </form>
   );
 };
 
-export default AuthenticationCard;
+export default FormCard;

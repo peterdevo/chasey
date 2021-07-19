@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classes from "./Signup.module.scss";
-import AuthenticationCard from "../reused/AuthenticationCard";
+import FormCard from "../reused/FormCard";
 import Header from "../containers/Header";
 import Button from "../reused/Button";
 import { UserInfoInput } from "../../typesVariants/Types";
@@ -39,7 +39,7 @@ const Signup = ({ OnSignUp }) => {
   return (
     <>
       <Header header={header} />
-      <AuthenticationCard onSubmit={handleSignup}>
+      <FormCard onSubmit={handleSignup}>
         <h3>Register</h3>
         <label>Firstname</label>
         <input
@@ -88,7 +88,7 @@ const Signup = ({ OnSignUp }) => {
         <Button type="submit" buttonStyle={"auth"}>
           Register
         </Button>
-      </AuthenticationCard>
+      </FormCard>
     </>
   );
 };

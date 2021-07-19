@@ -1,6 +1,6 @@
 import Signin from "../components/pagescontainers/Signin";
 import { signIn } from "next-auth/client";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const SignInPage = () => {
   const route = useRouter();

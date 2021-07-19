@@ -1,0 +1,23 @@
+.backward {
+    width: 60px;
+    height: 40px;
+    padding: 5px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: gray 1px 1px 10px;
+    cursor: pointer;
+  }
+  .backwardlogo {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .backward:hover {
+    background-color: #a3b9da;
+  }

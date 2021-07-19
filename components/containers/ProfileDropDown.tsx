@@ -14,10 +14,10 @@ const ProfileDropDown = ({ name, handleSignout }: IProps) => {
         </div>
 
         <li>
-          <Link href="profile-page">My profile</Link>
+          <Link href="/account-page/myInformation">My profile</Link>
         </li>
         <li>
-          <Link href="order-page">My order</Link>
+          <Link href="/account-page/myOrders">My order</Link>
         </li>
 
         <li onClick={handleSignout}>Logout</li>
