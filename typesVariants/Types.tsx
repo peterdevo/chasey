@@ -19,19 +19,23 @@ export type Person = {
   name: string;
   city:string;
   street: string;
-  zipcode: string;
+  zipCode: string;
   email: string;
   phone: string;
+  userId:string
 };
 
 export type UserInfoInput={
   email:string,
   password:string,
+  image?:string
   firstName?:string,
   lastName?:string,
+  phone?:string,
   address?:{
     street?:string
     city?:string,
-    zipcode?:string
+    zipCode?:string
   }
+  accountType:string
 }

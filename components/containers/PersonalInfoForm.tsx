@@ -2,6 +2,7 @@ import { useState } from "react";
 import classes from "./PersonalInfoForm.module.scss";
 import Button from "../reused/Button";
 import { Person } from "../../typesVariants/Types";
+import { useSession } from "next-auth/client";
 
 interface Istate {
   person: Person;
@@ -9,24 +10,21 @@ interface Istate {
 
 interface Iprops {
   checkoutOrder: (personInformation: Person) => void;
+  userData: Person;
 }
 
-const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
+const PersonalInfoForm = ({ userData, checkoutOrder }: Iprops) => {
+  const [session] = useSession();
+ 
   const [personInfo, setPersonInfo] = useState<Istate["person"]>({
-    name: "",
-    city: "",
-    street: "",
-    zipcode: "",
-    email: "",
-    phone: "",
+    name: session ? userData.name : "",
+    city: session ? userData.city : "",
+    street: session ? userData.street : "",
+    zipCode: session ? userData.zipCode : "",
+    email: session ? userData.email : "",
+    phone: session ? userData.phone : "",
+    userId: session ? userData.userId : "",
   });
-
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setPersonInfo({
-      ...personInfo,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -39,9 +37,8 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
       <input
         type="text"
         placeholder="Name"
-        name="name"
         value={personInfo.name}
-        onChange={handleOnChange}
+        onChange={(e) => setPersonInfo({ ...personInfo, name: e.target.value })}
       />
       <label>City</label>
       <input
@@ -49,7 +46,7 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
         placeholder="City"
         name="city"
         value={personInfo.city}
-        onChange={handleOnChange}
+        onChange={(e) => setPersonInfo({ ...personInfo, city: e.target.value })}
       />
       <label>Street</label>
       <input
@@ -57,15 +54,19 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
         placeholder="Street"
         name="street"
         value={personInfo.street}
-        onChange={handleOnChange}
+        onChange={(e) =>
+          setPersonInfo({ ...personInfo, street: e.target.value })
+        }
       />
       <label>Zipcode</label>
       <input
         type="text"
         placeholder="Zipcode"
         name="zipcode"
-        value={personInfo.zipcode}
-        onChange={handleOnChange}
+        value={personInfo.zipCode}
+        onChange={(e) =>
+          setPersonInfo({ ...personInfo, zipCode: e.target.value })
+        }
       />
       <label>Email</label>
       <input
@@ -73,7 +74,9 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
         placeholder="Email"
         name="email"
         value={personInfo.email}
-        onChange={handleOnChange}
+        onChange={(e) =>
+          setPersonInfo({ ...personInfo, email: e.target.value })
+        }
       />
       <label>Phone</label>
       <input
@@ -81,7 +84,9 @@ const PersonalInfoForm = ({ checkoutOrder }: Iprops) => {
         placeholder="Phone"
         name="phone"
         value={personInfo.phone}
-        onChange={handleOnChange}
+        onChange={(e) =>
+          setPersonInfo({ ...personInfo, phone: e.target.value })
+        }
       />
       <Button buttonStyle={"confirm"}>Buy</Button>
     </form>

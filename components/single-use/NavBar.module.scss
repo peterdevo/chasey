@@ -21,13 +21,12 @@
 @mixin sidepagemixin {
   position: fixed;
   left: 0;
-  top: 8vh;
+  top: 12vh;
   width: 100%;
   background-color:white;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
   flex-direction: column;
   list-style: none;
   transition:all 0.2s ease-out;

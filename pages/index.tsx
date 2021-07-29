@@ -1,4 +1,5 @@
 import MainHeader from "../components/containers/MainHeader";
+import { GetStaticProps } from "next";
 import Categories from "../components/containers/Categories";
 import Menus from "../components/containers/Menus";
 import dbConnect from "../utils/config";
@@ -6,7 +7,7 @@ import Product from "../models/ProductDetail";
 import { signOut, useSession } from "next-auth/client";
 import Layout from "../layouts/Layout";
 const HomePage = ({ menus }) => {
-  const [session, loading] = useSession();
+  const [session] = useSession();
   const isSession = session && true;
 
   const handleSignOut = () => {
@@ -27,7 +28,7 @@ const HomePage = ({ menus }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps:GetStaticProps = async () => {
   dbConnect();
   const menus = await Product.find({});
   return {
@@ -43,7 +44,7 @@ export const getStaticProps = async () => {
         };
       }),
     },
-    revalidate: 1,
+    revalidate: 20,
   };
 };
 

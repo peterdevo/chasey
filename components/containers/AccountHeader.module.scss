@@ -1,5 +1,17 @@
 .accountHeader{
     margin: 20px 5px;
- 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
+}
+.navBar{
+    position: relative;
+}
+
+@media screen and (min-width:1000px){
+    .navBar{
+        display: none;
+
+    }
 }

@@ -2,8 +2,8 @@ import classes from "./Button.module.scss";
 
 interface Iprops{
   children:any,
-  type?:string,
-  onClick?:()=>void,
+  type?:"button" | "submit" | "reset",
+  onClick?:(e)=>void,
   buttonStyle:any
 }
 const Button = ({ children, type, onClick, buttonStyle }:Iprops) => {

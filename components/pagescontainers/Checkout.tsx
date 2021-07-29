@@ -10,7 +10,7 @@ const header = {
   path: "/",
 };
 
-const CheckOut = ({onCheckout}) => {
+const CheckOut = ({ userData, onCheckout }) => {
   const shoppingCartContext = useShoppingCartContext();
 
   const handleDelete = (index: number): void => {
@@ -19,6 +19,8 @@ const CheckOut = ({onCheckout}) => {
     );
     shoppingCartContext.setShoppingCart([...result]);
   };
+
+
 
   const display = (): JSX.Element => {
     return shoppingCartContext.shoppingCart.map((order, index: number) => (
@@ -32,7 +34,7 @@ const CheckOut = ({onCheckout}) => {
   };
 
   const handleCheckout = (personalInformation): void => {
-    onCheckout(personalInformation)
+    onCheckout(personalInformation);
   };
   return (
     <div className={classes.checkout}>
@@ -45,6 +47,7 @@ const CheckOut = ({onCheckout}) => {
             totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
           />
           <PersonalInfoForm
+            userData={userData}
             checkoutOrder={(personInformation) =>
               handleCheckout(personInformation)
             }
