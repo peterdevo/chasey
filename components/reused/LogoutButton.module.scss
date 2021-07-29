@@ -1,0 +1,27 @@
+.exist {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  cursor: pointer;
+  color: rgb(54, 54, 54);
+
+  span {
+    margin-left: 4px;
+  }
+  span:hover {
+    color: rgb(145, 226, 213);
+  }
+
+  .existIcon:hover {
+    color: rgb(145, 226, 213);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .exist {
+    position: absolute;
+    bottom: 7vh;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+}

@@ -4,28 +4,34 @@ import OrderCard from "../reused/OrderCard";
 import Button from "../reused/Button";
 import TotalPrice from "../reused/TotalPrice";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
-import { v4 as uuidv4 } from 'uuid';
+import { useSession } from "next-auth/client";
+import { v4 as uuidv4 } from "uuid";
 
-interface IProps{
-  isVisible:boolean
-  name:string
+interface IProps {
+  isVisible: boolean;
+  name: string;
 }
-const ShoppingCart = ({ isVisible,name}:IProps) => {
+const ShoppingCart = ({ isVisible, name }: IProps) => {
   const route = useRouter();
+  const [session] = useSession();
 
   const navigateToCheckout = (): void => {
-    route.push("/checkout-page");
+    session
+      ? route.push(`/checkout-page/${session.userId}`)
+      : route.push("/checkout-page/guest");
   };
   const handleDelete = (index: number): void => {
-   console.log(index)
-    const result=shoppingCartContext.shoppingCart.filter((order,i:number)=>index!==i)
-    shoppingCartContext.setShoppingCart([...result])
+ 
+    const result = shoppingCartContext.shoppingCart.filter(
+      (order, i: number) => index !== i
+    );
+    shoppingCartContext.setShoppingCart([...result]);
   };
 
   const shoppingCartContext = useShoppingCartContext();
 
   const displayOrderCart = (): JSX.Element => {
-    return shoppingCartContext.shoppingCart.map((order,index:number) => (
+    return shoppingCartContext.shoppingCart.map((order, index: number) => (
       <OrderCard
         key={uuidv4()}
         order={order}

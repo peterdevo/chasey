@@ -22,7 +22,7 @@ const ProductSchema = new mongoose.Schema({
     required: true,
     maxlength: [200, "Description cannot be more than 200 characters"],
   },
-});
+},{timestamps:true});
 
 export default mongoose.models.Product ||
   mongoose.model("Product", ProductSchema);

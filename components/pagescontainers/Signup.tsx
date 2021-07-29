@@ -8,13 +8,16 @@ const Signup = ({ OnSignUp }) => {
   const [registeredUser, setRegisteredUser] = useState<UserInfoInput>({
     email: "",
     password: "",
+    image:"",
     firstName: "",
     lastName: "",
+    phone:"",
     address: {
       street: "",
       city: "",
-      zipcode: "",
+      zipCode: "",
     },
+    accountType:"credential"
   });
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
 

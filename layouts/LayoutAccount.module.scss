@@ -1,5 +1,9 @@
 .layoutAccount {
   font-size: 1.2em;
+  
+  section{
+    min-height: 100vh
+  }
 
   .leftNav {
     display: none;
@@ -21,34 +25,13 @@
       margin: 20px 0;
       box-shadow: 1px 1px 10px gray;
       border-radius: 10px;
+      min-height: 90vh;
     }
     main {
       width: 70%;
       margin: 20px auto;
       box-shadow: 1px 1px 10px gray;
       border-radius: 10px;
-    }
-
-    .exist {
-      display: flex;
-      align-items: center;
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translate(-50%, 50%);
-      cursor: pointer;
-      color: rgb(54, 54, 54);
-
-      span {
-        margin-left: 4px;
-      }
-      span:hover {
-        color: rgb(145, 226, 213);
-      }
-
-      .existIcon:hover{
-        color: rgb(145, 226, 213);
-      }
     }
   }
 }

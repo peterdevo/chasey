@@ -17,6 +17,9 @@ const UserSchema = new mongoose.Schema<IUser>({
     type: String,
     required: [true, "Please enter password"],
   },
+  image: {
+    type: String,
+  },
   firstName: {
     type: String,
     required: [true, "Please enter firstname"],
@@ -25,6 +28,11 @@ const UserSchema = new mongoose.Schema<IUser>({
     type: String,
     required: [true, "Please enter lastname"],
   },
+
+  phone: {
+    type: String,
+    required: [true, "Please enter phone number"],
+  },
   address: {
     city: {
       type: String,
@@ -32,11 +40,15 @@ const UserSchema = new mongoose.Schema<IUser>({
     street: {
       type: String,
     },
-    zipcode: {
+    zipCode: {
       type: String,
     },
   },
-});
+  accountType: {
+    type: String,
+    required: [true],
+  }
+},{timestamps:true});
 
 const SALT = 10;
 

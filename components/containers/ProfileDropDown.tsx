@@ -1,11 +1,13 @@
 import Link from "next/dist/client/link";
 import classes from "./ProfileDropDown.module.scss";
+import {useSession} from "next-auth/client"
 
 interface IProps {
   name: string;
   handleSignout: () => void;
 }
 const ProfileDropDown = ({ name, handleSignout }: IProps) => {
+  const [session]=useSession();
   return (
     <>
       <ul className={classes.profileDropDown}>
@@ -14,10 +16,10 @@ const ProfileDropDown = ({ name, handleSignout }: IProps) => {
         </div>
 
         <li>
-          <Link href="/account-page/myInformation">My profile</Link>
+          <Link href={`/account/myInformation/${session&&session.userId}`}>My profile</Link>
         </li>
         <li>
-          <Link href="/account-page/myOrders">My order</Link>
+          <Link href={`/account/myOrders/${session&&session.userId}`}>My order</Link>
         </li>
 
         <li onClick={handleSignout}>Logout</li>
