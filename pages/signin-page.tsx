@@ -11,9 +11,12 @@ const SignInPage = () => {
       redirect: false,
     }).then((response) => {
       if (response.error) {
-        return response.error;
+        console.log(response.error)
       }
-      route.push("/");
+      else{
+        route.push("/");
+      }
+      
     });
   };
   const onGoogleSignin=()=>{

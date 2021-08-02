@@ -11,9 +11,7 @@ const AddressBook = ({ addressBook }) => {
   const [city, setCity] = useState(addressBook.city);
   const [street, setStreet] = useState(addressBook.street);
   const [zipCode, setZipcode] = useState(addressBook.zipCode);
-
   const [session] = useSession();
-
 
   const onSubmit = async (e) => {
     const address = {
@@ -35,41 +33,43 @@ const AddressBook = ({ addressBook }) => {
     console.log(response.json());
   };
   return (
-    <LayoutAccount>
-      <h2>Address book</h2>
-      <FormCard onSubmit={onSubmit}>
-        <label>City:</label>
-        <input
-          placeholder="Enter your city"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <label>Street:</label>
-        <input
-          placeholder="Enter your street"
-          name="street"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-        />
-        <label>Zipcode:</label>
-        <input
-          placeholder="Enter your zipcode"
-          name="zipCode"
-          value={zipCode}
-          onChange={(e) => setZipcode(e.target.value)}
-        />
-        <Button type="submit" buttonStyle={"auth"}>
-          Save
-        </Button>
-      </FormCard>
-    </LayoutAccount>
+    <>
+      <LayoutAccount>
+        <h2>Address book</h2>
+        <FormCard onSubmit={onSubmit}>
+          <label>City:</label>
+          <input
+            placeholder="Enter your city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <label>Street:</label>
+          <input
+            placeholder="Enter your street"
+            name="street"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+          <label>Zipcode:</label>
+          <input
+            placeholder="Enter your zipcode"
+            name="zipCode"
+            value={zipCode}
+            onChange={(e) => setZipcode(e.target.value)}
+          />
+          <Button type="submit" buttonStyle={"auth"}>
+            Save
+          </Button>
+        </FormCard>
+      </LayoutAccount>
+    </>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
 export const getStaticProps: GetStaticProps = async (
@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (
         zipCode: response.address.zipCode,
       },
     },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
 

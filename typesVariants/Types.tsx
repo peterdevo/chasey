@@ -37,5 +37,5 @@ export type UserInfoInput={
     city?:string,
     zipCode?:string
   }
-  accountType:string
+  accountType?:string
 }
