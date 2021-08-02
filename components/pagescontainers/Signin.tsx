@@ -32,6 +32,7 @@ const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
     <>
       <Header header={header} />
       <FormCard onSubmit={handleSignin}>
+        <div>Error</div>
         <h3>Sign in</h3>
         <div className={classes.google} onClick={onGoogleSignin}>
           <ImGooglePlus size={22} />

@@ -11,7 +11,7 @@ const Signup = ({ OnSignUp }) => {
     image:"",
     firstName: "",
     lastName: "",
-    phone:"",
+    phone:"-",
     address: {
       street: "",
       city: "",

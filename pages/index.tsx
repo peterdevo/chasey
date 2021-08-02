@@ -44,7 +44,7 @@ export const getStaticProps:GetStaticProps = async () => {
         };
       }),
     },
-    revalidate: 20,
+    revalidate: 30,
   };
 };
 

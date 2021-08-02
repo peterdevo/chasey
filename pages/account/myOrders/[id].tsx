@@ -29,7 +29,6 @@ export const getStaticProps: GetStaticProps = async (
     "personalInfo.userId": context.params.id,
   });
 
-
   return {
     props: {
       orders: response.map((order) => {
@@ -56,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (
         };
       }),
     },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
 

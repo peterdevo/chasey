@@ -12,7 +12,13 @@ export default NextAuth({
         password: { type: "password" },
       },
       async authorize(credentials, req) {
-        let authUser = await User.findOne({ email: credentials.email });
+        const email = credentials.email;
+        const password = credentials.password;
+        if (email === "" || password === "") {
+          throw new Error("Email or password field cannot be empty!");
+        }
+        let authUser = await User.findOne({ email });
+
         if (!authUser) {
           throw new Error("This email does not exist!");
         }
@@ -94,7 +100,7 @@ export default NextAuth({
   },
 
   jwt: {
-    secret: process.env.JWT_SIGNING_PRIVATE_KEY,
+    secret: process.env.JWT_SECRET,
   },
   session: {
     maxAge: 30 * 24 * 60 * 60,

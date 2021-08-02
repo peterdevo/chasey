@@ -88,7 +88,7 @@ export const getStaticProps: GetStaticProps = async (
         phone:response.phone
       },
     },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
 
