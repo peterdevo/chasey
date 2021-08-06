@@ -1,54 +1,94 @@
 import Checkout from "../../components/pagescontainers/Checkout";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import User from "../../models/UserDetail";
 import dbConnect from "../../utils/config";
+import { checkoutOrderSchema } from "../../validationSchemas/checkoutOrder";
+import SuccessMessage from "../../components/reused/SuccessMessage";
 
 const CheckOut = ({ userData }) => {
   const ShoppingCartContext = useShoppingCartContext();
   const products = ShoppingCartContext.shoppingCart;
-
-  
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSucess, setIsSuccess] = useState(false);
+  const route = useRouter();
   const onCheckout = async (personalInfo) => {
     try {
-      const order = {
-        personalInfo: {
-          name: personalInfo.name,
-          email: personalInfo.email,
-          phone: personalInfo.phone,
-          address:{
-            city: personalInfo.city,
-            street: personalInfo.street,
-            zipCode: personalInfo.zipCode,
+      const postData = async () => {
+        const order = {
+          personalInfo: {
+            name: personalInfo.name,
+            email: personalInfo.email,
+            phone: personalInfo.phone,
+            address: {
+              city: personalInfo.city,
+              street: personalInfo.street,
+              zipCode: personalInfo.zipCode,
+            },
+            userId: personalInfo.userId,
           },
-          userId: personalInfo.userId,
-        },
-        products,
+          products,
+        };
+
+        await checkoutOrderSchema.validate(order);
+
+        const response = await fetch("/api/add-order", {
+          method: "POST",
+          body: JSON.stringify(order),
+          headers: {
+            "Content-Type": "Application/json",
+          },
+        });
+
+        return response.json();
       };
-   
-      const response = await fetch("/api/add-order", {
-        method: "POST",
-        body: JSON.stringify(order),
-        headers: {
-          "Content-Type": "Application/json",
-        },
-      });
+
+      const data = await postData();
+
+      if (data.errors) {
+        setErrorMessage(data.errors[0]);
+      } else {
+        setIsSuccess(true);
+        ShoppingCartContext.setShoppingCart([]);
+        ShoppingCartContext.setTotalPriceAndAmount({
+          totalprice: 0,
+          totaAmount: 0,
+        });
+      }
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.errors[0]);
     }
   };
   return (
-    <Checkout
-      userData={userData}
-      onCheckout={(personalInfo) => onCheckout(personalInfo)}
-    />
+    <div>
+      {isSucess && (
+        <SuccessMessage>
+          <div>
+            <div>Thank you for your order!</div>
+            <div
+              style={{ marginTop: "10px", color: "black", cursor: "pointer" }}
+              onClick={() => route.push("/")}
+            >
+              Back Home
+            </div>
+          </div>
+        </SuccessMessage>
+      )}
+      <Checkout
+        errorMessage={errorMessage}
+        userData={userData}
+        onCheckout={(personalInfo) => onCheckout(personalInfo)}
+      />
+    </div>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 };
 
@@ -60,6 +100,7 @@ export const getStaticProps: GetStaticProps = async (
     email: "",
     firstName: "",
     lastName: "",
+    phone: "",
     address: {
       street: "",
       city: "",
@@ -78,7 +119,7 @@ export const getStaticProps: GetStaticProps = async (
         userId: response._id.toString(),
         email: response.email,
         name: response.firstName,
-        phone:response.phone,
+        phone: response.phone,
         city: response.address.street,
         street: response.address.city,
         zipCode: response.address.zipCode,

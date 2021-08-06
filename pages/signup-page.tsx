@@ -14,13 +14,7 @@ const SignUpPage = () => {
       const data = response.json();
       return data;
     };
-
-    try {
-      const response = await fetchResponse();
-      
-    } catch (error) {
-      console.log(error);
-    }
+    await fetchResponse();
   };
   return (
     <div>

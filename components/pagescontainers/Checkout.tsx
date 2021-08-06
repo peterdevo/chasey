@@ -4,13 +4,14 @@ import TotalPrice from "../reused/TotalPrice";
 import PersonalInfoForm from "../containers/PersonalInfoForm";
 import classes from "./Checkout.module.scss";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
+import ErrorMessage from "../reused/ErrorMessage";
 
 const header = {
   includeRegistered: false,
   path: "/",
 };
 
-const CheckOut = ({ userData, onCheckout }) => {
+const CheckOut = ({ userData, onCheckout,errorMessage }) => {
   const shoppingCartContext = useShoppingCartContext();
 
   const handleDelete = (index: number): void => {
@@ -19,8 +20,6 @@ const CheckOut = ({ userData, onCheckout }) => {
     );
     shoppingCartContext.setShoppingCart([...result]);
   };
-
-
 
   const display = (): JSX.Element => {
     return shoppingCartContext.shoppingCart.map((order, index: number) => (
@@ -47,6 +46,7 @@ const CheckOut = ({ userData, onCheckout }) => {
             totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
           />
           <PersonalInfoForm
+            errorMessage={errorMessage}
             userData={userData}
             checkoutOrder={(personInformation) =>
               handleCheckout(personInformation)

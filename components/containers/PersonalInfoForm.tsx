@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import classes from "./PersonalInfoForm.module.scss";
 import Button from "../reused/Button";
 import { Person } from "../../typesVariants/Types";
 import { useSession } from "next-auth/client";
+import ErrorMessage from "../reused/ErrorMessage";
+
 
 interface Istate {
   person: Person;
@@ -11,9 +13,10 @@ interface Istate {
 interface Iprops {
   checkoutOrder: (personInformation: Person) => void;
   userData: Person;
+  errorMessage:""
 }
 
-const PersonalInfoForm = ({ userData, checkoutOrder }: Iprops) => {
+const PersonalInfoForm = ({errorMessage, userData, checkoutOrder }: Iprops) => {
   const [session] = useSession();
  
   const [personInfo, setPersonInfo] = useState<Istate["person"]>({
@@ -33,6 +36,7 @@ const PersonalInfoForm = ({ userData, checkoutOrder }: Iprops) => {
 
   return (
     <form className={classes.personalInfoForm} onSubmit={onSubmit}>
+       {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
       <label>Name</label>
       <input
         type="text"

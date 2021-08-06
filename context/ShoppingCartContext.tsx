@@ -33,7 +33,7 @@ export const ShoppingCartWrapper = ({ children }) => {
   
   return (
     <ShoppingCartContext.Provider
-      value={{ shoppingCart, setShoppingCart,totalPriceAndAmount }}
+      value={{ shoppingCart, setShoppingCart,totalPriceAndAmount,setTotalPriceAndAmount }}
     >
       {children}
     </ShoppingCartContext.Provider>

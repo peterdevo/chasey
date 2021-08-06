@@ -4,30 +4,53 @@ import FormCard from "../reused/FormCard";
 import Header from "../containers/Header";
 import Button from "../reused/Button";
 import { UserInfoInput } from "../../typesVariants/Types";
+import { useRouter } from "next/router";
+import { registerUserSchema } from "../../validationSchemas/registerUser";
+import ErrorMessage from "../reused/ErrorMessage";
+import SuccessMessage from "../reused/SuccessMessage";
+
 const Signup = ({ OnSignUp }) => {
   const [registeredUser, setRegisteredUser] = useState<UserInfoInput>({
     email: "",
     password: "",
-    image:"",
+    image: "",
     firstName: "",
     lastName: "",
-    phone:"-",
+    phone: "-",
     address: {
       street: "",
       city: "",
       zipCode: "",
     },
-    accountType:"credential"
+    accountType: "credential",
   });
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSucess, setIsSuccess] = useState(false);
+  const route = useRouter();
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (registeredUser.password !== confirmedPassword) {
-      return alert("not match");
+      return setErrorMessage("Password does not match!");
     }
-    OnSignUp(registeredUser);
+
+    try {
+      const validationResult = await registerUserSchema.validate({
+        firstName: registeredUser.firstName,
+        lastName: registeredUser.lastName,
+        email: registeredUser.email,
+        password: registeredUser.password,
+      });
+
+      if (validationResult) {
+        OnSignUp(registeredUser);
+        setIsSuccess(true);
+      }
+    } catch (err) {
+      setErrorMessage(err.errors[0]);
+    }
   };
   const header = {
     includeRegistered: false,
@@ -40,10 +63,21 @@ const Signup = ({ OnSignUp }) => {
     });
   };
   return (
-    <>
+    <div>
+      {isSucess && (
+        <SuccessMessage>
+          <div
+            style={{ cursor: "pointer", color: "black", marginTop: "10px" }}
+            onClick={() => route.push("/signin-page")}
+          >
+            Back to login page
+          </div>
+        </SuccessMessage>
+      )}
       <Header header={header} />
       <FormCard onSubmit={handleSignup}>
         <h3>Register</h3>
+        {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
         <label>Firstname</label>
         <input
           type="text"
@@ -92,7 +126,7 @@ const Signup = ({ OnSignUp }) => {
           Register
         </Button>
       </FormCard>
-    </>
+    </div>
   );
 };
 
