@@ -5,19 +5,21 @@ import classes from "./Signin.module.scss";
 import Button from "../reused/Button";
 import FormCard from "../reused/FormCard";
 import { ImGooglePlus } from "react-icons/im";
+import ErrorMessage from "../reused/ErrorMessage";
 
-const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
+const Signin = ({ onCredentialSignin, onGoogleSignin,errorMessage }) => {
   const [authInput, setAuthInput] = useState<UserInfoInput>({
     email: "",
     password: "",
   });
+  
 
   const header = {
     includeRegistered: true,
     path: "/",
   };
 
-  const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>):void => {
     setAuthInput({
       ...authInput,
       [e.target.name]: e.target.value,
@@ -26,18 +28,22 @@ const Signin = ({ onCredentialSignin,onGoogleSignin }) => {
 
   const handleSignin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
+    
+
     onCredentialSignin(authInput);
+
   };
   return (
     <>
       <Header header={header} />
       <FormCard onSubmit={handleSignin}>
-        <div>Error</div>
         <h3>Sign in</h3>
         <div className={classes.google} onClick={onGoogleSignin}>
           <ImGooglePlus size={22} />
           <div>Sign in with google</div>
         </div>
+        {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
         <label>Email</label>
         <input
           type="text"
