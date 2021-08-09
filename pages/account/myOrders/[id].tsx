@@ -3,12 +3,12 @@ import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import PersonalOrderCard from "../../../components/reused/PersonalOrderCard";
 import OrderDetail from "../../../models/OrderDetail";
 import dbConnect from "../../../utils/config";
-import { AiOutlineOrderedList } from "react-icons/ai";
+import { BsBag } from "react-icons/bs";
 
 const MyOrders = ({ orders }) => {
   return (
     <LayoutAccount>
-      <h2><AiOutlineOrderedList/> My orders</h2>
+      <h2><BsBag size={40}/> My orders</h2>
       <PersonalOrderCard orders={orders} />
     </LayoutAccount>
   );
