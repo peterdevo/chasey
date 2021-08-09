@@ -2,16 +2,19 @@ import LayoutAccount from "../../../layouts/LayoutAccount";
 import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import FormCard from "../../../components/reused/FormCard";
 import Button from "../../../components/reused/Button";
+import { IoLocationOutline } from "react-icons/io5";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 import User from "../../../models/UserDetail";
 import dbConnect from "../../../utils/config";
+import UpdatedMessage from "../../../components/reused/UpdatedMessage";
 
 const AddressBook = ({ addressBook }) => {
   const [city, setCity] = useState(addressBook.city);
   const [street, setStreet] = useState(addressBook.street);
   const [zipCode, setZipcode] = useState(addressBook.zipCode);
   const [session] = useSession();
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const onSubmit = async (e) => {
     const address = {
@@ -22,20 +25,32 @@ const AddressBook = ({ addressBook }) => {
     };
     e.preventDefault();
 
-    const response = await fetch("/api/update-bookAddress", {
-      method: "PUT",
-      body: JSON.stringify(address),
-      headers: {
-        "Content-Type": "Application/json",
-      },
-    });
-
-    console.log(response.json());
+    try {
+      await fetch("/api/update-bookAddress", {
+        method: "PUT",
+        body: JSON.stringify(address),
+        headers: {
+          "Content-Type": "Application/json",
+        },
+      });
+      let i = 0;
+      const timer = setInterval(() => {
+        setIsUpdated(true);
+        i++;
+        if (i > 2) {
+          clearInterval(timer);
+          setIsUpdated(false);
+        }
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
       <LayoutAccount>
-        <h2>Address book</h2>
+        {isUpdated && <UpdatedMessage />}
+        <h2><IoLocationOutline size={40}/>Address book</h2>
         <FormCard onSubmit={onSubmit}>
           <label>City:</label>
           <input

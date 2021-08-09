@@ -4,7 +4,7 @@ const SuccessMessage = ({ children }) => {
   return (
     <div className={classes.successMessage}>
       <div className={classes.message}>
-       <h4> Successful...</h4><br></br>
+       <h4> Successful!</h4><br></br>
         <div>
         {children}
         </div>
