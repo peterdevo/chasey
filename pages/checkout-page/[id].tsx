@@ -7,6 +7,7 @@ import User from "../../models/UserDetail";
 import dbConnect from "../../utils/config";
 import { checkoutOrderSchema } from "../../validationSchemas/checkoutOrder";
 import SuccessMessage from "../../components/reused/SuccessMessage";
+import { RiArrowGoBackLine } from "react-icons/ri";
 
 const CheckOut = ({ userData }) => {
   const ShoppingCartContext = useShoppingCartContext();
@@ -68,10 +69,17 @@ const CheckOut = ({ userData }) => {
           <div>
             <div>Thank you for your order!</div>
             <div
-              style={{ marginTop: "10px", color: "black", cursor: "pointer" }}
+              style={{
+                marginTop: "10px",
+                color: "black",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={() => route.push("/")}
             >
-              Back Home
+              <RiArrowGoBackLine size={20} style={{marginRight:"5px"}} /> Back Home
             </div>
           </div>
         </SuccessMessage>
@@ -125,7 +133,7 @@ export const getStaticProps: GetStaticProps = async (
         zipCode: response.address.zipCode,
       },
     },
-    revalidate: 20,
+    revalidate: 2,
   };
 };
 

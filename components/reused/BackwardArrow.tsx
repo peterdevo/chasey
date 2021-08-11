@@ -9,7 +9,7 @@ const BackwardArrow=({route})=>{
           color="gray"
           onClick={route}
         />
-        <span>Chasey</span>
+      
       </div>
     )
 }

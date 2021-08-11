@@ -1,6 +1,5 @@
 .personalOrderCard {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
 
   table {
@@ -20,10 +19,10 @@
         
     }
     .date{
-        font-size: 0.5em;
-        color: gray;
+        font-size: 0.7em;
+        color: rgb(87, 85, 85);
     }
-    .diliver{
+    .deliver{
         color: #F6921E;
     }
   }

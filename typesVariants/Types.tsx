@@ -5,6 +5,7 @@ export type MenuType = {
   title: string;
   star: string;
   description: string;
+  category:string;
 };
 
 export type OrderType = {

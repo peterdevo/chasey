@@ -2,10 +2,13 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
 
   .logo {
     font-family: cursive;
     font-size: 30px;
+    cursor: pointer;
   }
   .iconContainer {
     display: flex;

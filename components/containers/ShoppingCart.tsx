@@ -62,7 +62,7 @@ const ShoppingCart = ({ isVisible, name }: IProps) => {
         {displayOrderCart()}
       </div>
       <div className={classes.shipping}>
-        <div>Diliver 30-45 mins</div>
+        <div>Deliver 30-45 mins</div>
         <div>5$</div>
       </div>
       <TotalPrice
