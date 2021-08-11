@@ -1,6 +1,5 @@
 import MainHeader from "../components/containers/MainHeader";
 import { GetStaticProps } from "next";
-import Categories from "../components/containers/Categories";
 import Menus from "../components/containers/Menus";
 import dbConnect from "../utils/config";
 import Product from "../models/ProductDetail";
@@ -21,7 +20,6 @@ const HomePage = ({ menus }) => {
           isSession={isSession}
           handleSignout={handleSignOut}
         />
-        <Categories />
         <Menus menuData={menus} />
       </Layout>
     </>
@@ -41,6 +39,7 @@ export const getStaticProps:GetStaticProps = async () => {
           title: menu.title,
           star: menu.star,
           description: menu.description,
+          category:menu.category
         };
       }),
     },

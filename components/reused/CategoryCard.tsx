@@ -5,12 +5,13 @@ interface Iprops {
     title: string;
     icon: string;
   };
+  onClick:()=>void
 }
 
-const CategoryCard = ({ category }: Iprops) => {
+const CategoryCard = ({ category,onClick }: Iprops) => {
   return (
     <>
-      <div className={classes.categoryCard}>
+      <div className={classes.categoryCard} onClick={onClick}>
         <img src={category.icon} alt="icon" width={40} height={40} />
         <span>{category.title}</span>
       </div>

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
-import NavBar from "../single-use/NavBar";
 import ShoppingCart from "./ShoppingCart";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
 import ProfileDropDown from "./ProfileDropDown";
 import classes from "./MainHeader.module.scss";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiShoppingCartLine } from "react-icons/ri";
+import {useRouter} from "next/router"
 
 interface IProps {
   isSession: boolean;
@@ -16,9 +16,8 @@ interface IProps {
 const Header = ({ isSession, name, handleSignout }: IProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [loginVisiblity, setLoginVisibility] = useState(false);
-
   const shoppingCartContext = useShoppingCartContext();
-
+  const route=useRouter()
   const handleShoppingCartVisibility = (): void => {
     setIsVisible(!isVisible);
   };
@@ -28,8 +27,9 @@ const Header = ({ isSession, name, handleSignout }: IProps) => {
 
   return (
     <div className={classes.mainHeader}>
-      <NavBar />
-      <div className={classes.logo}>Chasey</div>
+      <div className={classes.logo} onClick={()=>route.push("/")}>
+        <img src="logo.jpg" height="80px" width="80px" />
+      </div>
       <div className={classes.iconContainer}>
         {loginVisiblity && (
           <>
