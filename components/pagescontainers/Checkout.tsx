@@ -1,18 +1,30 @@
 import OrderCard from "../reused/OrderCard";
 import Header from "../containers/Header";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import TotalPrice from "../reused/TotalPrice";
 import PersonalInfoForm from "../containers/PersonalInfoForm";
+import { checkoutOrderSchema } from "../../validationSchemas/checkoutOrder";
+import { useState } from "react";
 import classes from "./Checkout.module.scss";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
-import ErrorMessage from "../reused/ErrorMessage";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import SuccessMessage from "../reused/SuccessMessage";
+import { useRouter } from "next/router";
 
 const header = {
   includeRegistered: false,
   path: "/",
 };
 
-const CheckOut = ({ userData, onCheckout,errorMessage }) => {
+const CheckOut = ({ userData }) => {
   const shoppingCartContext = useShoppingCartContext();
+  const products = shoppingCartContext.shoppingCart;
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSucess, setIsSuccess] = useState(false);
+  const route = useRouter();
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   const handleDelete = (index: number): void => {
     const result = shoppingCartContext.shoppingCart.filter(
@@ -32,29 +44,126 @@ const CheckOut = ({ userData, onCheckout,errorMessage }) => {
     ));
   };
 
-  const handleCheckout = (personalInformation): void => {
-    onCheckout(personalInformation);
+  const submitPayment = async () => {
+    const sessionResponse = await fetch("/api/checkout-session", {
+      method: "POST",
+      body: JSON.stringify(products),
+      headers: {
+        "Content-Type": "Application/json",
+      },
+    });
+    const { clientSecret } = await sessionResponse.json();
+
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+
+    if (payload.error) {
+      return setErrorMessage(payload.error.message);
+    }
+    return true;
   };
+
+  const submitOrder = async (personalInfo) => {
+    const order = {
+      personalInfo: {
+        name: personalInfo.name,
+        email: personalInfo.email,
+        phone: personalInfo.phone,
+        address: {
+          city: personalInfo.city,
+          street: personalInfo.street,
+          zipCode: personalInfo.zipCode,
+        },
+        userId: personalInfo.userId,
+      },
+      products,
+    };
+
+    await checkoutOrderSchema.validate(order);
+
+    const isPaid = await submitPayment();
+    
+    if (isPaid) {
+      const response = await fetch("/api/add-order", {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+          "Content-Type": "Application/json",
+        },
+      });
+
+      return response.json();
+    }
+  };
+
+  const handleCheckout = async (personalInformation) => {
+    try {
+      const data = await submitOrder(personalInformation);
+
+      if (data) {
+        if (data.errors) {
+          setErrorMessage(data.errors[0]);
+        } else {
+          setIsSuccess(true);
+          shoppingCartContext.setShoppingCart([]);
+          shoppingCartContext.setTotalPriceAndAmount({
+            totalprice: 0,
+            totaAmount: 0,
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className={classes.checkout}>
-      <Header header={header} />
-      <div className={classes.checkoutBody}>
-        <h2>My order</h2>
-        {display()}
-        <div>
-          <TotalPrice
-            totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
-          />
-          <PersonalInfoForm
-            errorMessage={errorMessage}
-            userData={userData}
-            checkoutOrder={(personInformation) =>
-              handleCheckout(personInformation)
-            }
-          />
+    <>
+      {isSucess ? (
+        <SuccessMessage>
+          <div>
+            <div>Thank you for your order!</div>
+            <div
+              style={{
+                marginTop: "10px",
+                color: "black",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={() => route.push("/")}
+            >
+              <RiArrowGoBackLine size={20} style={{ marginRight: "5px" }} />{" "}
+              Back Home
+            </div>
+          </div>
+        </SuccessMessage>
+      ) : (
+        <div className={classes.checkout}>
+          <Header header={header} />
+          <div className={classes.checkoutBody}>
+            <h2>My order</h2>
+            {display()}
+            <div>
+              <TotalPrice
+                totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
+              />
+              <PersonalInfoForm
+                errorMessage={errorMessage}
+                userData={userData}
+                checkoutOrder={(personInformation) =>
+                  handleCheckout(personInformation)
+                }
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

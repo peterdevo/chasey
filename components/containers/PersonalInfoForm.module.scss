@@ -1,15 +1,15 @@
 .personalInfoForm {
   display: flex;
   width: 100%;
-  margin: 10px  auto;
+  margin: 10px auto;
   flex-direction: column;
   padding: 10px;
   border: none;
   outline: none;
   box-shadow: gray 1px 2px 10px;
   border-radius: 10px;
-  
 }
+
 
 @media screen and (min-width: 560px) {
   .personalInfoForm {
@@ -21,8 +21,6 @@
 @media screen and (min-width: 650px) {
   .personalInfoForm {
     width: 90%;
-    margin:20px auto;
+    margin: 20px auto;
   }
 }
-
-

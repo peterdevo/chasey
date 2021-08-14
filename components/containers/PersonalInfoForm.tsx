@@ -4,7 +4,7 @@ import Button from "../reused/Button";
 import { Person } from "../../typesVariants/Types";
 import { useSession } from "next-auth/client";
 import ErrorMessage from "../reused/ErrorMessage";
-
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 interface Istate {
   person: Person;
@@ -13,12 +13,16 @@ interface Istate {
 interface Iprops {
   checkoutOrder: (personInformation: Person) => void;
   userData: Person;
-  errorMessage:""
+  errorMessage: string;
 }
 
-const PersonalInfoForm = ({errorMessage, userData, checkoutOrder }: Iprops) => {
+const PersonalInfoForm = ({
+  errorMessage,
+  userData,
+  checkoutOrder,
+}: Iprops) => {
   const [session] = useSession();
- 
+
   const [personInfo, setPersonInfo] = useState<Istate["person"]>({
     name: session ? userData.name : "",
     city: session ? userData.city : "",
@@ -29,14 +33,17 @@ const PersonalInfoForm = ({errorMessage, userData, checkoutOrder }: Iprops) => {
     userId: session ? userData.userId : "",
   });
 
+ 
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     checkoutOrder(personInfo);
   };
+  console.log(errorMessage)
 
   return (
     <form className={classes.personalInfoForm} onSubmit={onSubmit}>
-       {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
+      {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
       <label>Name</label>
       <input
         type="text"
@@ -92,9 +99,29 @@ const PersonalInfoForm = ({errorMessage, userData, checkoutOrder }: Iprops) => {
           setPersonInfo({ ...personInfo, phone: e.target.value })
         }
       />
+      <label>Card payment</label>
+      <CardElement className="card-element" options={cardStyle}  />
       <Button buttonStyle={"confirm"}>Buy</Button>
     </form>
   );
+};
+const cardStyle = {
+  style: {
+    base: {
+      color: "#32325d",
+      fontFamily: "Arial, sans-serif",
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "black",
+      },
+    },
+
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a",
+    },
+  },
 };
 
 export default PersonalInfoForm;

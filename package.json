@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.17.0",
     "@types/jsonwebtoken": "^8.5.4",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
@@ -19,6 +21,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
     "sass": "^1.35.1",
+    "stripe": "^8.169.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },
