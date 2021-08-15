@@ -39,7 +39,7 @@ export default NextAuth({
     }),
     Providers.Google({
       async profile(profile, tokens) {
-        const password = passRandom();
+        
         const currentUser = {
           id: "",
           firstName: "",
@@ -49,7 +49,7 @@ export default NextAuth({
         if (profile.verified_email) {
           const registeredUser = {
             email: profile.email,
-            password: "12345",
+            password: passRandom(),
             image: profile.image,
             firstName: profile.family_name,
             lastName: profile.given_name,
