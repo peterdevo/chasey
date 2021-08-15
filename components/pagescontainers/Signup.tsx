@@ -64,6 +64,7 @@ const Signup = ({ OnSignUp }) => {
   };
   return (
     <div>
+     
       {isSucess && (
         <SuccessMessage>
           <div
@@ -104,7 +105,7 @@ const Signup = ({ OnSignUp }) => {
         />
         <label>Password</label>
         <input
-          type="text"
+          type="password"
           placeholder="Enter your password"
           name="password"
           value={registeredUser.password}
@@ -112,7 +113,7 @@ const Signup = ({ OnSignUp }) => {
         />
         <label>Re-password</label>
         <input
-          type="text"
+          type="password"
           placeholder="Confirm your password"
           onChange={(e) => setConfirmedPassword(e.target.value)}
         />

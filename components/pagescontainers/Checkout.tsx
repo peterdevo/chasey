@@ -10,6 +10,7 @@ import { useShoppingCartContext } from "../../context/ShoppingCartContext";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import SuccessMessage from "../reused/SuccessMessage";
 import { useRouter } from "next/router";
+import Loader from "../reused/Loader";
 
 const header = {
   includeRegistered: false,
@@ -21,6 +22,7 @@ const CheckOut = ({ userData }) => {
   const products = shoppingCartContext.shoppingCart;
   const [errorMessage, setErrorMessage] = useState("");
   const [isSucess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const route = useRouter();
 
   const stripe = useStripe();
@@ -63,6 +65,7 @@ const CheckOut = ({ userData }) => {
     if (payload.error) {
       return setErrorMessage(payload.error.message);
     }
+    setIsLoading(true);
     return true;
   };
 
@@ -83,9 +86,8 @@ const CheckOut = ({ userData }) => {
     };
 
     await checkoutOrderSchema.validate(order);
-
     const isPaid = await submitPayment();
-    
+
     if (isPaid) {
       const response = await fetch("/api/add-order", {
         method: "POST",
@@ -102,11 +104,11 @@ const CheckOut = ({ userData }) => {
   const handleCheckout = async (personalInformation) => {
     try {
       const data = await submitOrder(personalInformation);
-
       if (data) {
         if (data.errors) {
           setErrorMessage(data.errors[0]);
         } else {
+          setIsLoading(false);
           setIsSuccess(true);
           shoppingCartContext.setShoppingCart([]);
           shoppingCartContext.setTotalPriceAndAmount({
@@ -116,12 +118,13 @@ const CheckOut = ({ userData }) => {
         }
       }
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err);
     }
   };
-
+  console.log(isLoading);
   return (
     <>
+      {isLoading && <Loader />}
       {isSucess ? (
         <SuccessMessage>
           <div>

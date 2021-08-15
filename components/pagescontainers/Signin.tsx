@@ -57,7 +57,7 @@ const Signin = ({ onCredentialSignin, onGoogleSignin,errorMessage }) => {
           <p>Forget password?</p>
         </div>
         <input
-          type="text"
+          type="password"
           placeholder="Enter your password"
           name="password"
           value={authInput.password}
