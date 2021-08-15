@@ -12,15 +12,15 @@ export const getFirstAndLastName = (username:string) => {
 
 
 export const passRandom=()=>{
-  const pass=""
-  let arr=["hg[]21:%)r"]
+  const pass=[]
+  let arr=["h","g","[]","21",":","d","%","#","9","o","p","&","Z","G","(",")"]
   let i=0
   while(i<arr.length){
     i++
     let result=Math.floor(Math.random() * arr.length); 
-    pass.concat(arr[result])
+    pass.push(arr[result])
   }
 
 
-  return pass
+  return pass.join('')
 }

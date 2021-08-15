@@ -5,6 +5,7 @@ import dbConnect from "../utils/config";
 import Product from "../models/ProductDetail";
 import { signOut, useSession } from "next-auth/client";
 import Layout from "../layouts/Layout";
+
 const HomePage = ({ menus }) => {
   const [session] = useSession();
   const isSession = session && true;
