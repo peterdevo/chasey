@@ -85,13 +85,14 @@ const CheckOut = ({ userData }) => {
       products,
     };
 
-    await checkoutOrderSchema.validate(order);
+    const validatedOrder = await checkoutOrderSchema.validate(order);
+
     const isPaid = await submitPayment();
 
     if (isPaid) {
       const response = await fetch("/api/add-order", {
         method: "POST",
-        body: JSON.stringify(order),
+        body: JSON.stringify(validatedOrder),
         headers: {
           "Content-Type": "Application/json",
         },
@@ -118,10 +119,10 @@ const CheckOut = ({ userData }) => {
         }
       }
     } catch (err) {
-      setErrorMessage(err);
+      setErrorMessage(err.errors[0]);
     }
   };
-  console.log(isLoading);
+
   return (
     <>
       {isLoading && <Loader />}
