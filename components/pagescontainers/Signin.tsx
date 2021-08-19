@@ -6,12 +6,14 @@ import Button from "../reused/Button";
 import FormCard from "../reused/FormCard";
 import { ImGooglePlus } from "react-icons/im";
 import ErrorMessage from "../reused/ErrorMessage";
+import { useRouter } from "next/router";
 
 const Signin = ({ onCredentialSignin, onGoogleSignin,errorMessage }) => {
   const [authInput, setAuthInput] = useState<UserInfoInput>({
     email: "",
     password: "",
   });
+  const route=useRouter()
   
 
   const header = {
@@ -28,9 +30,6 @@ const Signin = ({ onCredentialSignin, onGoogleSignin,errorMessage }) => {
 
   const handleSignin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
-    
-
     onCredentialSignin(authInput);
 
   };
@@ -54,7 +53,7 @@ const Signin = ({ onCredentialSignin, onGoogleSignin,errorMessage }) => {
         />
         <div className={classes.forgetPass}>
           <label>Password</label>
-          <p>Forget password?</p>
+          <p onClick={()=>route.push("forget-password")}>Forget password?</p>
         </div>
         <input
           type="password"

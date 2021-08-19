@@ -7,7 +7,7 @@ import { useSession } from "next-auth/client";
 import { useState } from "react";
 import User from "../../../models/UserDetail";
 import dbConnect from "../../../utils/config";
-import UpdatedMessage from "../../../components/reused/UpdatedMessage";
+import CompletedMessage from "../../../components/reused/CompletedMessage";
 
 const AddressBook = ({ addressBook }) => {
   const [city, setCity] = useState(addressBook.city);
@@ -33,15 +33,8 @@ const AddressBook = ({ addressBook }) => {
           "Content-Type": "Application/json",
         },
       });
-      let i = 0;
-      const timer = setInterval(() => {
-        setIsUpdated(true);
-        i++;
-        if (i > 2) {
-          clearInterval(timer);
-          setIsUpdated(false);
-        }
-      }, 1000);
+
+      setIsUpdated(true);
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +42,13 @@ const AddressBook = ({ addressBook }) => {
   return (
     <>
       <LayoutAccount>
-        {isUpdated && <UpdatedMessage />}
-        <h2><IoLocationOutline size={40}/>Address book</h2>
+        {isUpdated && (
+          <CompletedMessage Onhide={()=>setIsUpdated(false)} message="Your address book has been updated." />
+        )}
+        <h2>
+          <IoLocationOutline size={40} />
+          Address book
+        </h2>
         <FormCard onSubmit={onSubmit}>
           <label>City:</label>
           <input
