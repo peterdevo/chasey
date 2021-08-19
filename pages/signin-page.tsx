@@ -20,6 +20,7 @@ const SignInPage = () => {
         redirect: false,
       }).then((response) => {
         if (response.error) {
+          setIsloading(false)
           setErrorMessage(response.error);
         } else {
           setIsloading(false)

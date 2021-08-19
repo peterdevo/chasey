@@ -7,7 +7,7 @@ import User from "../../../models/UserDetail";
 import { useState } from "react";
 import dbConnect from "../../../utils/config";
 import { useSession } from "next-auth/client";
-import UpdatedMessage from "../../../components/reused/UpdatedMessage";
+import CompletedMessage from "../../../components/reused/CompletedMessage";
 const myInformation = ({ userData }) => {
   const [session] = useSession();
   const [firstName, setFirstName] = useState(userData.firstName);
@@ -32,23 +32,24 @@ const myInformation = ({ userData }) => {
           "Content-Type": "Application/json",
         },
       });
-      let i = 0;
-      const timer = setInterval(() => {
-        setIsUpdated(true);
-        i++;
-        if (i > 2) {
-          clearInterval(timer);
-          setIsUpdated(false);
-        }
-      }, 1000);
+
+      setIsUpdated(true);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <LayoutAccount>
-      {isUpdated && <UpdatedMessage />}
-      <h2><IoPersonOutline size={40} style={{marginRight:"10px"}}/>My information</h2>
+      {isUpdated && (
+        <CompletedMessage
+          Onhide={() => setIsUpdated(false)}
+          message="You information has been updated."
+        />
+      )}
+      <h2>
+        <IoPersonOutline size={40} style={{ marginRight: "10px" }} />
+        My information
+      </h2>
       <FormCard onSubmit={onSubmit}>
         <label>Firstname:</label>
         <input
