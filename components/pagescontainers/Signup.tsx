@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { registerUserSchema } from "../../validationSchemas/registerUser";
 import ErrorMessage from "../reused/ErrorMessage";
 import SuccessMessage from "../reused/SuccessMessage";
+import TermAndCondition from "../single-use/TermAndCondition";
 
 const Signup = ({ OnSignUp }) => {
   const [registeredUser, setRegisteredUser] = useState<UserInfoInput>({
@@ -27,6 +28,8 @@ const Signup = ({ OnSignUp }) => {
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSucess, setIsSuccess] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const route = useRouter();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +45,7 @@ const Signup = ({ OnSignUp }) => {
         lastName: registeredUser.lastName,
         email: registeredUser.email,
         password: registeredUser.password,
+        checkConditions: isChecked,
       });
 
       if (validationResult) {
@@ -62,9 +66,9 @@ const Signup = ({ OnSignUp }) => {
       [e.target.name]: e.target.value,
     });
   };
+
   return (
     <div>
-     
       {isSucess && (
         <SuccessMessage>
           <div
@@ -75,7 +79,11 @@ const Signup = ({ OnSignUp }) => {
           </div>
         </SuccessMessage>
       )}
-      <Header header={header} />
+      <TermAndCondition isActive={isActive} setIsActive={setIsActive} />
+
+      <div style={{ overflowX: "hidden" }}>
+        <Header header={header} />
+      </div>
       <FormCard onSubmit={handleSignup}>
         <h3>Register</h3>
         {errorMessage !== "" && <ErrorMessage message={errorMessage} />}
@@ -118,8 +126,13 @@ const Signup = ({ OnSignUp }) => {
           onChange={(e) => setConfirmedPassword(e.target.value)}
         />
         <div className={classes.termOfCondition}>
-          <input className={classes.checkbox} type="checkbox" />
-          <p>
+          <input
+            className={classes.checkbox}
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(!isChecked)}
+          />
+          <p onClick={() => setIsActive(true)}>
             I agree with <span>Terms of condition</span>
           </p>
         </div>

@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from "yup";
+import { bool, object, string, TypeOf } from "yup";
 
 export const registerUserSchema = object({
   firstName: string().required("Firstname field is required.").min(2),
@@ -9,6 +9,7 @@ export const registerUserSchema = object({
   password: string()
     .required("Password is required.")
     .min(6, "Password must be at least 6 characters"),
+  checkConditions: bool().oneOf([true], "You must accept Terms."),
 });
 
 export type registerUser = TypeOf<typeof registerUserSchema>;
