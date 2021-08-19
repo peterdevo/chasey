@@ -1,0 +1,67 @@
+.termAndCondition {
+  position: absolute;
+  transform: translateY(11%);
+  transition: 0.5s all ease-out;
+  p {
+    width: 92%;
+    margin: auto;
+    background-color: whitesmoke;
+    box-shadow: gray 1px 1px 10px;
+    padding:1.5em;
+  }
+}
+
+.hidden {
+  position: fixed;
+  transform: translateY(-250%);
+  transition: 0.2s all ease-in;
+  
+  p {
+    width: 92%;
+    text-align: center;
+    margin: auto;
+    background-color: whitesmoke;
+    box-shadow: gray 1px 1px 10px;
+    padding: 1em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .termAndCondition {
+    p {
+      width: 75%;
+    }
+  }
+
+  .hidden {
+    p {
+      width: 75%;
+    }
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .termAndCondition {
+    p {
+      width: 65%;
+    }
+  }
+  .hidden {
+    p {
+      width: 65%;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .termAndCondition {
+    p {
+      width: 50%;
+    }
+  }
+  .hidden {
+    p {
+      width: 50%;
+    }
+  }
+}

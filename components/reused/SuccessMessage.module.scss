@@ -1,9 +1,10 @@
 .successMessage {
   background-color: rgba(168, 160, 160, 0.8);
   position: fixed;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   display: flex;
+  transform: translateY(0%);
   align-items: center;
   justify-content: center;
   text-align: center;
