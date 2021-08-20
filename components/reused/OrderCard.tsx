@@ -16,7 +16,7 @@ const OrderCard = ({order,cardSize,handleDelete}:IProps) => {
       <div>{order.amount}</div>
       <div>{order.title}</div>
       <div>{order.price}$</div>
-      <Button type="delete" buttonStyle={"delete"} onClick={handleDelete} >Delete</Button>
+      <Button buttonStyle={"delete"} onClick={handleDelete} >Delete</Button>
     </div>
   );
 };
