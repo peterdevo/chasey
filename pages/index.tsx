@@ -15,15 +15,14 @@ const HomePage = ({ menus }) => {
   };
   return (
     <>
-      <div>hello</div>
-      {/* <Layout>
+      <Layout>
         <MainHeader
           name={session && session.user.name}
           isSession={isSession}
           handleSignout={handleSignOut}
         />
         <Menus menuData={menus} />
-      </Layout> */}
+      </Layout>
     </>
   );
 };
@@ -31,24 +30,21 @@ const HomePage = ({ menus }) => {
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnect();
 
-  // const menus = await Product.find({});
+
+  const menus = await Product.find({});
   return {
     props: {
-      menus: {
-        id: "hello",
-      },
-      // menus: menus.map((menu) => {
-      //   return {
-      //     name: "hi",
-      //     // id: menu._id.toString(),
-      //     // image: menu.image,
-      //     // price: menu.price,
-      //     // title: menu.title,
-      //     // star: menu.star,
-      //     // description: menu.description,
-      //     // category: menu.category,
-      //   };
-      // }),
+      menus: menus.map((menu) => {
+        return {
+          id: menu._id.toString(),
+          image: menu.image,
+          price: menu.price,
+          title: menu.title,
+          star: menu.star,
+          description: menu.description,
+          category: menu.category,
+        };
+      }),
     },
     revalidate: 30,
   };

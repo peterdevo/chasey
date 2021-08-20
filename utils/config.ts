@@ -2,8 +2,9 @@ import mongoose from 'mongoose'
 const globalAny:any = global;
 
 const MONGODB_URI = process.env.DB_HOST
-
+console.log(MONGODB_URI)
 if (!MONGODB_URI) {
+  console.log("there is not mongourl")
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env.local'
   )
