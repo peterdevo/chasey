@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import ErrorMessage from "../components/reused/ErrorMessage";
 import UpdatedMessage from "../components/reused/CompletedMessage";
 import AccountHeader from "../components/containers/AccountHeader";
-const forgetPassword = () => {
+const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [sucessMessage, setSucessMessage] = useState("");
@@ -49,4 +49,4 @@ const forgetPassword = () => {
   );
 };
 
-export default forgetPassword;
+export default ForgetPassword;

@@ -8,7 +8,7 @@ import { useState } from "react";
 import dbConnect from "../../../utils/config";
 import { useSession } from "next-auth/client";
 import CompletedMessage from "../../../components/reused/CompletedMessage";
-const myInformation = ({ userData }) => {
+const MyInformation = ({ userData }) => {
   const [session] = useSession();
   const [firstName, setFirstName] = useState(userData.firstName);
   const [lastName, setLastName] = useState(userData.lastName);
@@ -108,4 +108,4 @@ export const getStaticProps: GetStaticProps = async (
   };
 };
 
-export default myInformation;
+export default MyInformation;

@@ -2,7 +2,7 @@ import router, { useRouter } from "next/router";
 import { useState } from "react";
 import Button from "../../components/reused/Button";
 import FormCard from "../../components/reused/FormCard";
-const resetPassword = () => {
+const ResetPassword = () => {
   const route = useRouter();
   const [password, setPassword] = useState("");
   const slug = route.query.slug || [{}];
@@ -30,4 +30,4 @@ const resetPassword = () => {
   );
 };
 
-export default resetPassword;
+export default ResetPassword;
