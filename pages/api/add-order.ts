@@ -8,9 +8,15 @@ dbConnect();
 
 const handler= async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const order = await new Order(req.body);
-    await order.save();
-    res.status(201).json({ success: true, data: order });
+    try {
+      const order = await new Order(req.body);
+      await order.save();
+      res.status(201).json({ success: true, data: order });
+      
+    } catch (error) {
+      console.log(error)
+    }
+  
   }
 };
 
