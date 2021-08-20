@@ -8,15 +8,17 @@ const dbConnect = async () => {
   if (connection.isConnected) {
     return;
   }
-  try {
-    
+  try { 
     const db = await mongoose.connect(process.env.DB_HOST, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
     });
 
+    console.log(db)
+
     connection.isConnected = db.connections[0].readyState;
+
   } catch (error) {
     console.log(error);
   }
