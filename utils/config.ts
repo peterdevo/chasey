@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 const globalAny:any = global;
 
-// const MONGODB_URI = process.env.DB_HOST
+const MONGODB_URI = process.env.DB_HOST
 
-// if (!MONGODB_URI) {
-//   throw new Error(
-//     'Please define the MONGODB_URI environment variable inside .env.local'
-//   )
-// }
+if (!MONGODB_URI) {
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env.local'
+  )
+}
 
 let cached = globalAny.mongoose
 
@@ -30,7 +30,7 @@ async function dbConnect () {
       useCreateIndex: true
     }
 
-    cached.promise = mongoose.connect(process.env.DB_HOST, opts).then(mongoose => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
       return mongoose
     })
   }
