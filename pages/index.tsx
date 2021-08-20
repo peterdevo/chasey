@@ -15,7 +15,7 @@ const HomePage = ({ menus }) => {
   };
   return (
     <>
-    <div>hello</div>
+      <div>hello</div>
       {/* <Layout>
         <MainHeader
           name={session && session.user.name}
@@ -31,19 +31,19 @@ const HomePage = ({ menus }) => {
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnect();
 
-
   const menus = await Product.find({});
   return {
     props: {
       menus: menus.map((menu) => {
         return {
-          id: menu._id.toString(),
-          image: menu.image,
-          price: menu.price,
-          title: menu.title,
-          star: menu.star,
-          description: menu.description,
-          category: menu.category,
+          name: "hi",
+          // id: menu._id.toString(),
+          // image: menu.image,
+          // price: menu.price,
+          // title: menu.title,
+          // star: menu.star,
+          // description: menu.description,
+          // category: menu.category,
         };
       }),
     },
