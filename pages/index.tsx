@@ -27,8 +27,9 @@ const HomePage = ({ menus }) => {
   );
 };
 
-export const getStaticProps:GetStaticProps = async () => {
-  dbConnect();
+export const getStaticProps: GetStaticProps = async () => {
+  await dbConnect();
+
   const menus = await Product.find({});
   return {
     props: {
@@ -40,7 +41,7 @@ export const getStaticProps:GetStaticProps = async () => {
           title: menu.title,
           star: menu.star,
           description: menu.description,
-          category:menu.category
+          category: menu.category,
         };
       }),
     },
