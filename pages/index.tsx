@@ -15,20 +15,22 @@ const HomePage = ({ menus }) => {
   };
   return (
     <>
-      <Layout>
+    <div>hello</div>
+      {/* <Layout>
         <MainHeader
           name={session && session.user.name}
           isSession={isSession}
           handleSignout={handleSignOut}
         />
         <Menus menuData={menus} />
-      </Layout>
+      </Layout> */}
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   await dbConnect();
+
 
   const menus = await Product.find({});
   return {
