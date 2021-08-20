@@ -51,7 +51,7 @@ const Menus = ({ menuData }: IProps) => {
       <div className={classes.menusContainer}>
         <div className={classes.title}>
           <img src="/leftbrush.png" width="80px" />
-          <h2>Appetizing meal</h2>
+          <h2>Menu</h2>
           <img src="/rightbrush.png" width="80px" />
         </div>
         <div className={classes.menus}>

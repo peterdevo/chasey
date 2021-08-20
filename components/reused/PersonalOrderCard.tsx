@@ -31,13 +31,6 @@ const PersonalOrderCard = ({ orders }) => {
                 </tr>
               );
             })}
-
-            <tr>
-              <th></th>
-              <th></th>
-              <th className={classes.deliver}>Deliver</th>
-              <th>$5</th>
-            </tr>
             <tr>
               <th></th>
               <th></th>

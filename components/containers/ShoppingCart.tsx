@@ -6,6 +6,7 @@ import TotalPrice from "../reused/TotalPrice";
 import { useShoppingCartContext } from "../../context/ShoppingCartContext";
 import { useSession } from "next-auth/client";
 import { v4 as uuidv4 } from "uuid";
+import {FiTruck} from "react-icons/fi"
 
 interface IProps {
   isVisible: boolean;
@@ -21,7 +22,6 @@ const ShoppingCart = ({ isVisible, name }: IProps) => {
       : route.push("/checkout-page/guest");
   };
   const handleDelete = (index: number): void => {
- 
     const result = shoppingCartContext.shoppingCart.filter(
       (order, i: number) => index !== i
     );
@@ -61,10 +61,7 @@ const ShoppingCart = ({ isVisible, name }: IProps) => {
         <h2>My order</h2>
         {displayOrderCart()}
       </div>
-      <div className={classes.shipping}>
-        <div>Deliver 30-45 mins</div>
-        <div>5$</div>
-      </div>
+      <div className={classes.shipping}><FiTruck size={23}/><span>Free dilivery</span> </div>
       <TotalPrice
         totalPrice={shoppingCartContext.totalPriceAndAmount.totalprice}
       />
