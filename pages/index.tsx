@@ -29,7 +29,7 @@ const HomePage = ({ menus }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  // await dbConnect();
+  await dbConnect();
 
   // const menus = await Product.find({});
   return {
