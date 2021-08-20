@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const menus = await Product.find({});
   return {
     props: {
-      menu:{
+      menus:{
         id:"hello"
       }
       // menus: menus.map((menu) => {
