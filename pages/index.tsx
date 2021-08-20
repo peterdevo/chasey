@@ -34,18 +34,21 @@ export const getStaticProps: GetStaticProps = async () => {
   const menus = await Product.find({});
   return {
     props: {
-      menus: menus.map((menu) => {
-        return {
-          name: "hi",
-          // id: menu._id.toString(),
-          // image: menu.image,
-          // price: menu.price,
-          // title: menu.title,
-          // star: menu.star,
-          // description: menu.description,
-          // category: menu.category,
-        };
-      }),
+      menu:{
+        id:"hello"
+      }
+      // menus: menus.map((menu) => {
+      //   return {
+      //     name: "hi",
+      //     // id: menu._id.toString(),
+      //     // image: menu.image,
+      //     // price: menu.price,
+      //     // title: menu.title,
+      //     // star: menu.star,
+      //     // description: menu.description,
+      //     // category: menu.category,
+      //   };
+      // }),
     },
     revalidate: 30,
   };
