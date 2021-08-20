@@ -7,7 +7,9 @@ const ProfileHead = () => {
   return (
     <div className={classes.profileHead}>
       <div className={classes.imageFrame}>
-        <Image src={profile} alt="User image" />
+        <div className={classes.withinframe}>
+        <Image src={profile} alt="User image" height="100%" width="100%"    />
+        </div>
       </div>
       Hi
       <div>{session && session.user.name}</div>
