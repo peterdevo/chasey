@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import User from "../../../models/UserDetail";
 import { passRandom } from "../../../funtions/funtion";
-
+import dbConnect from "../../../utils/config";
 export default NextAuth({
   providers: [
     Providers.Credentials({
@@ -39,30 +39,30 @@ export default NextAuth({
     }),
     Providers.Google({
       async profile(profile, tokens) {
-        
-        const currentUser = {
-          id: "",
-          firstName: "",
-          lastName: "",
-        };
-
-        if (profile.verified_email) {
-          const registeredUser = {
-            email: profile.email,
-            password: passRandom(),
-            image: profile.image,
-            firstName: profile.family_name,
-            lastName: profile.given_name,
-            phone: "-",
-            address: {
-              street: "",
-              city: "",
-              zipCode: "",
-            },
-            accountType: "google",
+        try {
+          dbConnect()
+          const currentUser = {
+            id: "",
+            firstName: "",
+            lastName: "",
           };
 
-          try {
+          if (profile.verified_email) {
+            const registeredUser = {
+              email: profile.email,
+              password: passRandom(),
+              image: profile.image,
+              firstName: profile.family_name,
+              lastName: profile.given_name,
+              phone: "-",
+              address: {
+                street: "",
+                city: "",
+                zipCode: "",
+              },
+              accountType: "google",
+            };
+
             const authUser = await User.findOne({ email: profile.email });
 
             if (!authUser) {
@@ -76,15 +76,15 @@ export default NextAuth({
               currentUser.firstName = authUser.firstName;
               currentUser.lastName = authUser.lastName;
             }
-          } catch (error) {
-            console.log(error);
           }
-        }
 
-        return {
-          id: currentUser.id,
-          name: `${currentUser.firstName} ${currentUser.lastName}`,
-        };
+          return {
+            id: currentUser.id,
+            name: `${currentUser.firstName} ${currentUser.lastName}`,
+          };
+        } catch (error) {
+          console.log(error);
+        }
       },
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
