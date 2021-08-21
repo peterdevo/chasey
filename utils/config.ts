@@ -1,42 +1,21 @@
-import mongoose from 'mongoose'
-const globalAny:any = global;
+import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.DB_HOST
+const connection = {
+  isConnected: null,
+};
 
-if (!MONGODB_URI) {
-  console.log("there is not mongourl")
-  throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
-  )
-}
-
-let cached = globalAny.mongoose
-
-if (!cached) {
-  cached = globalAny.mongoose = { conn: null, promise: null }
-}
-
-async function dbConnect () {
-  if (cached.conn) {
-    return cached.conn
+async function dbConnect() {
+  if (connection.isConnected) {
+    return;
   }
 
-  if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-      bufferMaxEntries: 0,
-      useFindAndModify: true,
-      useCreateIndex: true
-    }
+  const db = await mongoose.connect(process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  });
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
-      return mongoose
-    })
-  }
-  cached.conn = await cached.promise
-  return cached.conn
+  connection.isConnected = db.connections[0].readyState;
 }
 
-export default dbConnect
+export default dbConnect;
