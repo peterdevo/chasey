@@ -7,23 +7,23 @@ import Loader from "../components/reused/Loader";
 
 const SignInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading,setIsloading]=useState(false)
+  const [isLoading, setIsloading] = useState(false);
   const route = useRouter();
 
   const onCredentialSignin = async (user) => {
     try {
       const validatedUser = await loginUserSchema.validate(user);
-      setIsloading(true)
+      setIsloading(true);
       signIn("credentials", {
         email: validatedUser.email,
         password: validatedUser.password,
         redirect: false,
       }).then((response) => {
         if (response.error) {
-          setIsloading(false)
+          setIsloading(false);
           setErrorMessage(response.error);
         } else {
-          setIsloading(false)
+          setIsloading(false);
           route.push("/");
         }
       });
@@ -32,11 +32,15 @@ const SignInPage = () => {
     }
   };
   const onGoogleSignin = () => {
-    signIn("google", { callbackUrl: "http://localhost:3000/" });
+    let hostname=""
+    if (typeof window !== "undefined") {
+       hostname = window.location.hostname;
+    }
+    signIn("google", { callbackUrl: `http://${hostname}/` });
   };
   return (
     <>
-      {isLoading&&<Loader />}
+      {isLoading && <Loader />}
       <Signin
         errorMessage={errorMessage}
         onCredentialSignin={onCredentialSignin}
