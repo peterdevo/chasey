@@ -79,6 +79,7 @@ export default NextAuth({
           // }
 
           return {
+            id: "currentUser.id",
             name: `${profile.family_name} ${profile.given_name}`,
           };
         } catch (error) {
