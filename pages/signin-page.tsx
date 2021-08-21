@@ -31,9 +31,8 @@ const SignInPage = () => {
       setErrorMessage(err.errors[0]);
     }
   };
-  const onGoogleSignin = () => {
- 
-    signIn("google");
+  const onGoogleSignin =async () => {
+    await signIn("google");
   };
   return (
     <>
