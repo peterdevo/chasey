@@ -32,11 +32,8 @@ const SignInPage = () => {
     }
   };
   const onGoogleSignin = () => {
-    let hostname=""
-    if (typeof window !== "undefined") {
-       hostname = window.location.hostname;
-    }
-    signIn("google", { callbackUrl: `http://${hostname}/` });
+ 
+    signIn("google");
   };
   return (
     <>
