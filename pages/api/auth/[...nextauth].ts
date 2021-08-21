@@ -40,47 +40,46 @@ export default NextAuth({
     Providers.Google({
       async profile(profile, tokens) {
         try {
-          dbConnect()
-          const currentUser = {
-            id: "",
-            firstName: "",
-            lastName: "",
-          };
+          // dbConnect()
+          // const currentUser = {
+          //   id: "",
+          //   firstName: "",
+          //   lastName: "",
+          // };
 
-          if (profile.verified_email) {
-            const registeredUser = {
-              email: profile.email,
-              password: passRandom(),
-              image: profile.image,
-              firstName: profile.family_name,
-              lastName: profile.given_name,
-              phone: "-",
-              address: {
-                street: "",
-                city: "",
-                zipCode: "",
-              },
-              accountType: "google",
-            };
+          // if (profile.verified_email) {
+          //   const registeredUser = {
+          //     email: profile.email,
+          //     password: passRandom(),
+          //     image: profile.image,
+          //     firstName: profile.family_name,
+          //     lastName: profile.given_name,
+          //     phone: "-",
+          //     address: {
+          //       street: "",
+          //       city: "",
+          //       zipCode: "",
+          //     },
+          //     accountType: "google",
+          //   };
 
-            const authUser = await User.findOne({ email: profile.email });
+          //   const authUser = await User.findOne({ email: profile.email });
 
-            if (!authUser) {
-              const user = new User(registeredUser);
-              const response = await user.save();
-              currentUser.id = response._id.toString();
-              currentUser.firstName = response.firstName;
-              currentUser.lastName = response.lastName;
-            } else {
-              currentUser.id = authUser._id.toString();
-              currentUser.firstName = authUser.firstName;
-              currentUser.lastName = authUser.lastName;
-            }
-          }
+          //   if (!authUser) {
+          //     const user = new User(registeredUser);
+          //     const response = await user.save();
+          //     currentUser.id = response._id.toString();
+          //     currentUser.firstName = response.firstName;
+          //     currentUser.lastName = response.lastName;
+          //   } else {
+          //     currentUser.id = authUser._id.toString();
+          //     currentUser.firstName = authUser.firstName;
+          //     currentUser.lastName = authUser.lastName;
+          //   }
+          // }
 
           return {
-            id: currentUser.id,
-            name: `${currentUser.firstName} ${currentUser.lastName}`,
+            name: `${profile.family_name} ${profile.given_name}`,
           };
         } catch (error) {
           console.log(error);
