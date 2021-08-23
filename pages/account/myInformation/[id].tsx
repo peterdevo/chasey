@@ -4,30 +4,55 @@ import FormCard from "../../../components/reused/FormCard";
 import Button from "../../../components/reused/Button";
 import { IoPersonOutline } from "react-icons/io5";
 import User from "../../../models/UserDetail";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dbConnect from "../../../utils/config";
 import { useSession } from "next-auth/client";
 import CompletedMessage from "../../../components/reused/CompletedMessage";
-const MyInformation = ({ userData }) => {
+import { useRouter } from "next/router";
+
+interface IUserInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+const MyInformation = () => {
   const [session] = useSession();
-  const [firstName, setFirstName] = useState(userData.firstName);
-  const [lastName, setLastName] = useState(userData.lastName);
-  const [email, setEmail] = useState(userData.email);
-  const [phone, setPhone] = useState(userData.phone);
+  const [userInfo, setUserInfo] = useState<Partial<IUserInfo>>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+
   const [isUpdated, setIsUpdated] = useState(false);
+  const route = useRouter();
+  const { id } = route.query;
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/retrieve-userinfo/${id}`
+      );
+      const { userData } = await response.json();
+      setUserInfo(userData);
+    };
+    id!==undefined&&fetchData();
+  }, [id]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const userInfo = {
+
+    const user = {
       id: session && session.userId,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      email: userInfo.email,
+      phone: userInfo.phone,
     };
     try {
       await fetch("/api/update-personalinfo", {
         method: "PUT",
-        body: JSON.stringify(userInfo),
+        body: JSON.stringify(user),
         headers: {
           "Content-Type": "Application/json",
         },
@@ -50,62 +75,39 @@ const MyInformation = ({ userData }) => {
         <IoPersonOutline size={40} style={{ marginRight: "10px" }} />
         My information
       </h2>
-      <FormCard onSubmit={onSubmit}>
-        <label>Firstname:</label>
-        <input
-          placeholder="Enter your firstname"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <label>Lastname:</label>
-        <input
-          placeholder="Enter your lastname"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <label>Email:</label>
-        <input
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label>Phone:</label>
-        <input
-          placeholder="Enter your phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <Button type="submit" buttonStyle={"auth"}>
-          Save
-        </Button>
-      </FormCard>
+      {Object.keys(userInfo).length > 0 && (
+        <FormCard onSubmit={onSubmit}>
+          <label>Firstname:</label>
+          <input
+            placeholder="Enter your firstname"
+            value={userInfo.firstName}
+            onChange={(e) => setUserInfo({ firstName: e.target.value })}
+          />
+          <label>Lastname:</label>
+          <input
+            placeholder="Enter your lastname"
+            value={userInfo.lastName}
+            onChange={(e) => setUserInfo({ lastName: e.target.value })}
+          />
+          <label>Email:</label>
+          <input
+            placeholder="Enter your email"
+            value={userInfo.email}
+            onChange={(e) => setUserInfo({ email: e.target.value })}
+          />
+          <label>Phone:</label>
+          <input
+            placeholder="Enter your phone"
+            value={userInfo.phone}
+            onChange={(e) => setUserInfo({ phone: e.target.value })}
+          />
+          <Button type="submit" buttonStyle={"auth"}>
+            Save
+          </Button>
+        </FormCard>
+      )}
     </LayoutAccount>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
-export const getStaticProps: GetStaticProps = async (
-  context: GetStaticPropsContext
-) => {
-  dbConnect();
-  const response = await User.findById(context.params.id);
-  return {
-    props: {
-      userData: {
-        id: response._id.toString(),
-        email: response.email,
-        firstName: response.firstName,
-        lastName: response.lastName,
-        phone: response.phone,
-      },
-    },
-    revalidate: 30,
-  };
 };
 
 export default MyInformation;
