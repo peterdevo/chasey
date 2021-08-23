@@ -13,7 +13,11 @@ const LayoutAccount = ({ children }) => {
   const [isAuthorized, setAuthorized] = useState(false);
   const [loading,setLoading]=useState(false)
   const logOut = () => {
-    signOut({ callbackUrl: "http://localhost:3000/" });
+    let hostname=""
+    if (typeof window !== 'undefined') {
+      hostname = window.location.hostname;
+   }
+    signOut({ callbackUrl: `http://${hostname}/` });
   };
   useEffect(() => {
     const getData = async () => {
