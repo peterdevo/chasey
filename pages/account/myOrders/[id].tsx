@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (
         };
       }),
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 };
 
