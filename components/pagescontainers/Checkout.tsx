@@ -83,6 +83,7 @@ const CheckOut = ({ userData }) => {
         userId: personalInfo.userId,
       },
       products,
+      totalPaid:shoppingCartContext.totalPriceAndAmount.totalprice
     };
 
     const validatedOrder = await checkoutOrderSchema.validate(order);
@@ -103,6 +104,7 @@ const CheckOut = ({ userData }) => {
   };
 
   const handleCheckout = async (personalInformation) => {
+   
     try {
       const data = await submitOrder(personalInformation);
       if (data) {

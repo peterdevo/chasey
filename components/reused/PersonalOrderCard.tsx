@@ -1,9 +1,7 @@
 import classes from "./PersonalOrderCard.module.scss";
 import { v4 as uuidv4 } from "uuid";
 
-
 const PersonalOrderCard = ({ orders }) => {
-  let sum=0
   return (
     <div className={classes.personalOrderCard}>
       {orders.map((order) => (
@@ -22,7 +20,6 @@ const PersonalOrderCard = ({ orders }) => {
               <th>Amount</th>
             </tr>
             {order.products.map((product) => {
-              sum+=product.price*product.amount
               return (
                 <tr key={uuidv4()}>
                   <th>
@@ -38,7 +35,7 @@ const PersonalOrderCard = ({ orders }) => {
               <th></th>
               <th></th>
               <th>Total:</th>
-              <th>{sum}$</th>
+              <th>{order.total}$</th>
             </tr>
           </tbody>
         </table>

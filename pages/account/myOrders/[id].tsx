@@ -43,6 +43,7 @@ export const getStaticProps: GetStaticProps = async (
         return {
           id: order._id.toString(),
           createdAt: newdate,
+          total:order.totalPaid,
           products: order.products.map((product) => {
             return {
               id: product._id.toString(),

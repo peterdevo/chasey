@@ -64,7 +64,7 @@ export default NextAuth({
             };
 
             const authUser = await User.findOne({ email: profile.email });
-            console.log(authUser)
+            
 
             if (!authUser) {
               const user = new User(registeredUser);

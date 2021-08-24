@@ -1,11 +1,12 @@
 import mongoose, { Document } from "mongoose";
+import { number } from "yup/lib/locale";
 
 const OrderSchema = new mongoose.Schema(
   {
     personalInfo: {
       name: { type: String, require: true },
       email: { type: String, require: true },
-      phone: { type: String, require: true },   
+      phone: { type: String, require: true },
       address: {
         city: { type: String, require: true },
         street: { type: String, require: true },
@@ -37,6 +38,8 @@ const OrderSchema = new mongoose.Schema(
         },
       },
     ],
+
+    totalPaid: { type: number, require: true },
   },
   { timestamps: true }
 );
