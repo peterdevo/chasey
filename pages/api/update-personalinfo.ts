@@ -11,10 +11,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       let doc = await User.findOneAndUpdate(
         { _id: id },
-        { firstName: firstName, lastName: lastName, email: email, phone: phone }
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+        },
+        { new: true }
       );
       res.status(200).json({
         message: "sucessfully updated",
+        updatedUserInfo:doc
       });
     } catch (error) {
       console.log(error);

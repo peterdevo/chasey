@@ -1,11 +1,8 @@
 import LayoutAccount from "../../../layouts/LayoutAccount";
-import { GetStaticProps, GetStaticPropsContext, GetStaticPaths } from "next";
 import FormCard from "../../../components/reused/FormCard";
 import Button from "../../../components/reused/Button";
 import { IoPersonOutline } from "react-icons/io5";
-import User from "../../../models/UserDetail";
 import { useState, useEffect } from "react";
-import dbConnect from "../../../utils/config";
 import { useSession } from "next-auth/client";
 import CompletedMessage from "../../../components/reused/CompletedMessage";
 import { useRouter } from "next/router";
@@ -30,13 +27,11 @@ const MyInformation = () => {
   const { id } = route.query;
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `/api/retrieve-userinfo/${id}`
-      );
+      const response = await fetch(`/api/retrieve-userinfo/${id}`);
       const { userData } = await response.json();
       setUserInfo(userData);
     };
-    id!==undefined&&fetchData();
+    id !== undefined && fetchData();
   }, [id]);
 
   const onSubmit = async (e) => {
@@ -50,14 +45,15 @@ const MyInformation = () => {
       phone: userInfo.phone,
     };
     try {
-      await fetch("/api/update-personalinfo", {
+      const response = await fetch("/api/update-personalinfo", {
         method: "PUT",
         body: JSON.stringify(user),
         headers: {
           "Content-Type": "Application/json",
         },
       });
-
+      const { updatedUserInfo } = await response.json();
+      setUserInfo(updatedUserInfo);
       setIsUpdated(true);
     } catch (error) {
       console.log(error);
@@ -81,25 +77,33 @@ const MyInformation = () => {
           <input
             placeholder="Enter your firstname"
             value={userInfo.firstName}
-            onChange={(e) => setUserInfo({ firstName: e.target.value })}
+            onChange={(e) =>
+              setUserInfo({ ...userInfo, firstName: e.target.value })
+            }
           />
           <label>Lastname:</label>
           <input
             placeholder="Enter your lastname"
             value={userInfo.lastName}
-            onChange={(e) => setUserInfo({ lastName: e.target.value })}
+            onChange={(e) =>
+              setUserInfo({ ...userInfo, lastName: e.target.value })
+            }
           />
           <label>Email:</label>
           <input
             placeholder="Enter your email"
             value={userInfo.email}
-            onChange={(e) => setUserInfo({ email: e.target.value })}
+            onChange={(e) =>
+              setUserInfo({ ...userInfo, email: e.target.value })
+            }
           />
           <label>Phone:</label>
           <input
             placeholder="Enter your phone"
             value={userInfo.phone}
-            onChange={(e) => setUserInfo({ phone: e.target.value })}
+            onChange={(e) =>
+              setUserInfo({ ...userInfo, phone: e.target.value })
+            }
           />
           <Button type="submit" buttonStyle={"auth"}>
             Save

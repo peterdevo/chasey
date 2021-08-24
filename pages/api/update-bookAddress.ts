@@ -16,10 +16,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           "address.city": city,
           "address.street": street,
           "address.zipCode": zipCode,
+        },
+        {
+          new: true,
         }
       );
 
-      res.status(200).json({ message: "Successfully updated" });
+      
+      res.status(200).json({ message: "Successfully updated",updatedAddress:doc.address });
     } catch (error) {
       console.log(error);
     }

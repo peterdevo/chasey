@@ -23,6 +23,7 @@ const AddressBook = () => {
   const [isUpdated, setIsUpdated] = useState(false);
   const route = useRouter();
   const { id } = route.query;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,14 +47,19 @@ const AddressBook = () => {
     };
     e.preventDefault();
 
+    console.log(address)
+
     try {
-      await fetch("/api/update-bookAddress", {
+     const response= await fetch("/api/update-bookAddress", {
         method: "PUT",
         body: JSON.stringify(address),
         headers: {
           "Content-Type": "Application/json",
         },
       });
+
+      const {updatedAddress}=await response.json();
+      setAddressBook(updatedAddress)
 
       setIsUpdated(true);
     } catch (error) {
@@ -79,21 +85,27 @@ const AddressBook = () => {
             <input
               placeholder="Enter your city"
               value={addressBook.city}
-              onChange={(e) => setAddressBook({ city: e.target.value })}
+              onChange={(e) =>
+                setAddressBook({ ...addressBook, city: e.target.value })
+              }
             />
             <label>Street:</label>
             <input
               placeholder="Enter your street"
               name="street"
               value={addressBook.street}
-              onChange={(e) => setAddressBook({ street: e.target.value })}
+              onChange={(e) =>
+                setAddressBook({ ...addressBook, street: e.target.value })
+              }
             />
             <label>Zipcode:</label>
             <input
               placeholder="Enter your zipcode"
               name="zipCode"
               value={addressBook.zipCode}
-              onChange={(e) => setAddressBook({ zipCode: e.target.value })}
+              onChange={(e) =>
+                setAddressBook({ ...addressBook, zipCode: e.target.value })
+              }
             />
             <Button type="submit" buttonStyle={"auth"}>
               Save
