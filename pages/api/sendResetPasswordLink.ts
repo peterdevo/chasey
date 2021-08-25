@@ -18,16 +18,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           { expiresIn: "15m" }
         );
 
-        let testAccount = await nodemailer.createTestAccount();
-
-        
         let transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false, 
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
           auth: {
-            user: testAccount.user, 
-            pass: testAccount.pass,
+            user: process.env.EMAIL_SECRET,
+            pass: process.env.PASS_SECRET,
           },
         });
 
@@ -37,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           subject: "Reset password",
           html: `<html><body> <a href=${req.headers.origin}/reset-password/${isUser.id}/${token}>Reset your password here.</a> </body>`,
         };
-        let info = await transporter.sendMail(mailOptions);
+      await transporter.sendMail(mailOptions);
 
         res
           .status(200)
