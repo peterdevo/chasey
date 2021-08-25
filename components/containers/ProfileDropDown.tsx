@@ -19,7 +19,7 @@ const ProfileDropDown = ({ name, handleSignout }: IProps) => {
           <Link href={`/account/myInformation/${session&&session.userId}`}>My profile</Link>
         </li>
         <li>
-          <Link href={`/account/myOrders/${session&&session.userId}`}>My order</Link>
+          <Link href={`/account/myOrders/${session&&session.userId}`}>My orders</Link>
         </li>
 
         <li onClick={handleSignout}>Logout</li>

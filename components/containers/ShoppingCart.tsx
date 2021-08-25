@@ -58,7 +58,7 @@ const ShoppingCart = ({ isVisible, name }: IProps) => {
         <div>{name}</div>
       </div>
       <div className={classes.orderSection}>
-        <h2>My order</h2>
+        <h2>My orders</h2>
         {displayOrderCart()}
       </div>
       <div className={classes.shipping}><FiTruck size={23}/><span>Free dilivery</span> </div>

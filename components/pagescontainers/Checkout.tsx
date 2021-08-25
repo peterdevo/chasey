@@ -152,7 +152,7 @@ const CheckOut = ({ userData }) => {
         <div className={classes.checkout}>
           <Header header={header} />
           <div className={classes.checkoutBody}>
-            <h2>My order</h2>
+            <h2>My orders</h2>
             {display()}
             <div>
               <TotalPrice
