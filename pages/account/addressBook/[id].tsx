@@ -47,7 +47,7 @@ const AddressBook = () => {
     };
     e.preventDefault();
 
-    console.log(address)
+   
 
     try {
      const response= await fetch("/api/update-bookAddress", {

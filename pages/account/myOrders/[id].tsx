@@ -6,6 +6,7 @@ import dbConnect from "../../../utils/config";
 import { BsBag } from "react-icons/bs";
 
 const MyOrders = ({ orders }) => {
+  console.log(orders)
   return (
     <LayoutAccount>
       <h2><BsBag size={40}/> My orders</h2>
