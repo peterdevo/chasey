@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           subject: "Reset password",
           html: `<html><body> <a href=${req.headers.origin}/reset-password/${isUser.id}/${token}>Reset your password here.</a> </body>`,
         };
-      await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
 
         res
           .status(200)
