@@ -18,9 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           { expiresIn: "15m" }
         );
         let transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 465,
-          secure: true,
+          service:"Gmail",
           auth: {
             user: process.env.EMAIL_SECRET,
             pass: process.env.PASS_SECRET,
