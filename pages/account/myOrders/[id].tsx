@@ -17,7 +17,7 @@ const MyOrders = ({ orders }) => {
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
-    fallback: "blocking",
+    fallback: true,
   };
 };
 
