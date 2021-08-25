@@ -17,23 +17,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           process.env.JWT_SECRET,
           { expiresIn: "15m" }
         );
-        // let transporter = nodemailer.createTransport({
-        //   host: "smtp.gmail.com",
-        //   port: 465,
-        //   secure: true,
-        //   auth: {
-        //     user: process.env.EMAIL_SECRET,
-        //     pass: process.env.PASS_SECRET,
-        //   },
-        // });
+        let transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.EMAIL_SECRET,
+            pass: process.env.PASS_SECRET,
+          },
+        });
 
-        // let mailOptions = {
-        //   from: "Chasey",
-        //   to: email,
-        //   subject: "Reset password",
-        //   html: `<html><body> <a href=${req.headers.origin}/reset-password/${isUser.id}/${token}>Reset your password here.</a> </body>`,
-        // };
-        // await transporter.sendMail(mailOptions);
+        let mailOptions = {
+          from: "Chasey",
+          to: email,
+          subject: "Reset password",
+          html: `<html><body> <a href=${req.headers.origin}/reset-password/${isUser.id}/${token}>Reset your password here.</a> </body>`,
+        };
+       let info= await transporter.sendMail(mailOptions);
 
         res.status(200).json({ message: "The link has been sent to you email." });
       } else{
