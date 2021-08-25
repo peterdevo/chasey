@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if ((req.method = "POST")) {
     try {
       const isUser = await User.findOne({ email });
-      res.status(200).json({ message: "Successfully",err:true });
+      
       if (isUser) {
         const token = JWT.sign(
           { id: isUser._id, email: isUser.email },
